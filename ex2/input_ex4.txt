@@ -1,0 +1,9 @@
+John.Smith@gmail.com
+John12.@gmail.com
+.@gmail.com
+.Smith@gmail.com
+John.smith@gmail.com
+John.Sm@a.com
+12.John@a.com
+John.Smith@.com
+John.Smith@gmail12.com
