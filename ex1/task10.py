@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 
 from ex1.my_complex import MyComplex
@@ -19,7 +19,7 @@ try:
     #convert input to numbers except first argument (name of script)
     args_eval = [eval(x) for x in args[1:]]
 except:
-    print("Could not convert to numbers!")
+    print('Could not convert to numbers!')
     print_help()
 
 x1 = MyComplex(args_eval[0], args_eval[1])
