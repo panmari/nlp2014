@@ -2,6 +2,8 @@
 
 import re
 
+# additionally ignoring punctuation when checking word length
+# the first group is non consuming, so it counts towards word length (and non-digit check)
 p = re.compile('(?=[^A-Z])[^0-9,\.]{5,}')
 
 with open('input_ex5.txt') as f:
