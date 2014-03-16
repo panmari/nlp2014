@@ -28,6 +28,7 @@ except:
     minimal_count = 20
     print("No argument given, using default of {} as minimal threshold".format(minimal_count))
 
+# print to file sorted descendant by number of occurrence
 with open('output_ex4_bigrams.txt', 'w') as f:
     for bigram, count in bigram_counter.most_common(len(bigram_counter)):
         if count < minimal_count:
