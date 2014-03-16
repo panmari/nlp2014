@@ -1,8 +1,9 @@
 
 import re
 import collections
-
-# this implementation tries to use fast data structures and prevents copying lists at all cost.
+import sys
+# this implementation tries to use fast data structures and prevents copying lists at all cost (would need lots of
+# memory and is slow).
 
 with open('input_ex4.txt') as f:
     # split() method splits on any whitespace by default
@@ -20,4 +21,15 @@ for i in arry:
     bigram_counter[(before, i)] += 1
     before = i
 
-print(bigram_counter.most_common(10))
+# read out command line argument
+try:
+    minimal_count = int(sys.argv[1])
+except:
+    minimal_count = 20
+    print("No argument given, using default of {} as minimal threshold".format(minimal_count))
+
+with open('output_ex4_bigrams.txt', 'w') as f:
+    for bigram, count in bigram_counter.most_common(len(bigram_counter)):
+        if count < minimal_count:
+            break
+        f.write("{} {}\n".format(bigram, count))
