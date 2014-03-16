@@ -15,7 +15,8 @@ def give_contexts(search_term, n):
             end_context = 2*n + 1
             for idx, word in enumerate(n_context):
                 # words that contain dots and are all uppercase are considered abbreviations (fixes "Charles VII.")
-                if '.' in word and not word.isupper():
+                # if ',' and '.' appear both in one word, the point was for an abbreviation!
+                if '.' in word and not word.isupper() and not ',' in word:
                     if idx < n:
                         start_context = idx + 1
                     else:
@@ -28,4 +29,4 @@ def give_contexts(search_term, n):
 
     return contexts
 
-print("\n".join([" ".join(y) for (x,y) in give_contexts('France', 5)]))
+print("\n".join([" ".join(y) for (x,y) in give_contexts('France', 10)]))
