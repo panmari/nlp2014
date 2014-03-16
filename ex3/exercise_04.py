@@ -3,7 +3,6 @@ import re
 import collections
 
 # this implementation tries to use fast data structures and prevents copying lists at all cost.
-p = re.compile('(\b.+)')
 
 with open('input_ex4.txt') as f:
     # split() method splits on any whitespace by default
