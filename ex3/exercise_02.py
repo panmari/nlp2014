@@ -1,8 +1,8 @@
 
 import re
-docs = ['input_ex2_1.txt', 'input_ex2_2.txt', 'input_ex2_3.txt', 'input_ex2_4.txt', 'input_ex2_5.txt']
+docs = ['input_ex2_1.txt', 'input_ex2_2.txt', 'input_ex2_3.txt', 'input_ex2_4.txt', 'input_ex2_5.txt', 'input_ex2_6.txt']
 
-# Tests with regex if
+# Tests with regex if xml is valid
 def test_docs_regex(docs):
     tag_regex = re.compile("<([^?][^ ><]*) ?.*?>")
 
@@ -12,6 +12,14 @@ def test_docs_regex(docs):
                 tag_stack = []
                 was_empty = False
                 for line_count, line in enumerate(f):
+                    # fix enumerate to 1 based counting
+                    line_count += 1
+                    attributes = re.search("<.*?=(.*?)\??>", line)
+                    if attributes:
+                        for attribute in attributes.groups():
+                            if not (attribute[0] == '"' and attribute[-1] == '"'):
+                                raise Exception("Attribute {} was not in quotation marks on line {}".format(attribute, line_count))
+
                     tags = tag_regex.findall(line)
                     for tag in tags:
                         if '/' == tag[0]: # ending tag
