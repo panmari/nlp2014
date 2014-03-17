@@ -9,10 +9,10 @@ def give_contexts(search_term, n):
 
     contexts = []
     for idx, word in enumerate(arry):
-        if re.match(search_term, word):
+        if re.match(search_term, word, re.IGNORECASE):
             n_context = arry[idx-n:idx+n+1]
             start_context = 0
-            end_context = 2*n + 1
+            end_context = len(n_context)
             for idx, word in enumerate(n_context):
                 # words that contain dots and are all uppercase are considered abbreviations (fixes "Charles VII.")
                 # if ',' and '.' appear both in one word, the point was for an abbreviation!
@@ -28,5 +28,6 @@ def give_contexts(search_term, n):
 
 
     return contexts
-
-print("\n".join([" ".join(y) for (x,y) in give_contexts('France', 10)]))
+contexts = give_contexts('France', 10)
+print("Found {} matches:".format(len(contexts)))
+print("\n".join([" ".join(y) for (x,y) in contexts]))
