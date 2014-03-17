@@ -1,6 +1,6 @@
 
 import re
-import collections
+from collections import Counter
 import sys
 # this implementation tries to use fast data structures and prevents copying lists at all cost (would need lots of
 # memory and is slow).
@@ -15,7 +15,7 @@ with open('input_ex4.txt') as f:
     # instead of
     # [..., "end.", ...]
 
-bigram_counter = collections.Counter()
+bigram_counter = Counter()
 before = next(arry)
 for i in arry:
     bigram_counter[(before, i)] += 1
