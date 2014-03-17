@@ -1,17 +1,15 @@
 
-# TODO: parse xml, throw exception if invalid
 import re
-docs = ['input_ex2_1.txt', 'input_ex2_2.txt', 'input_ex2_3.txt']
+docs = ['input_ex2_1.txt', 'input_ex2_2.txt', 'input_ex2_3.txt', 'input_ex2_4.txt', 'input_ex2_5.txt']
 
-
-# Idea: keep a stack of tags, check if they are closed in correct order
-# Idea: check if there are only allowed characters in tag
+# Tests with regex if
 def test_docs_regex(docs):
     tag_regex = re.compile("<([^?][^ ><]*) ?.*?>")
-    tag_stack = []
+
     for doc in docs:
         with open(doc) as f:
             try:
+                tag_stack = []
                 was_empty = False
                 for line_count, line in enumerate(f):
                     tags = tag_regex.findall(line)
@@ -20,21 +18,26 @@ def test_docs_regex(docs):
                             start_tag = tag_stack.pop()
                             was_empty = len(tag_stack) == 0
                             if start_tag != tag[1:]:
-                                raise Exception("Problem on line {}, did expect end tag for {}," \
-                                      "bug found end tag {}".format(line_count, start_tag, tag[1:]))
-                        else:
+                                raise Exception("Problem on line {}, did expect end tag for {}, "
+                                                "but never found one".format(line_count, start_tag, tag[1:]))
+                        else:           # starting tag
                             if was_empty:
                                 raise Exception("Document does not seem to have a root node, since "
                                                 "on line {} there was nothing on stack".format(line_count))
+                            if re.search(r'[.,:;]', tag): # could check for mor invalid characters
+                                raise Exception('There is an invalid xml tag on line {}: {}'.format(line_count, tag))
                             tag_stack.append(tag)
+                if not len(tag_stack) == 0:
+                    raise Exception("There were tags that were never closed, namely: {}".format(tag_stack))
                 print("{}: YES".format(doc))
             except Exception as e:
                 print("{}: NO, {}".format(doc, e))
 
+
 test_docs_regex(docs)
 print()
 
-# Idea: don't do this exercise and just use an xml parser, since there are already way too many of these to write a new one.
+# Just use an xml parser, since there are already way too many of these to write a new one.
 import xml.etree.ElementTree as ET
 def test_docs_et(docs):
     for doc in docs:
