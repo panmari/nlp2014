@@ -1,0 +1,15 @@
+# Readme
+
+This file is best viewed with ipython3 notebook. Install it using
+`sudo apt-get install ipython3-notebook` on Debian derivatives. To have
+the plots behave nicely and appear inline, you'd most likely first have
+to add the repository `ppa:jtaylor/ipython` to your sources, e.g. via 
+
+     apt-add-repository ppa:jtaylor/ipython
+
+Then run ipython notebook in this folder with
+
+    ipython3 notebook
+
+The rest should be self explanatory. The results are also visible in the
+.pdf, but all interactivity is missing.
