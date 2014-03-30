@@ -9,7 +9,7 @@ Alexander Hamilton (51 articles: nos. 1, 6-9, 11-13, 15-17, 21-36, 59-61, and 65
 James Madison (26 articles: nos. 10, 14, 37-58 and 62-63)
 John Jay (5 articles: 2-5 and 64).
 
-Nos. 18â to 20 were the result of a collaboration between Madison and Hamilton.
+Nos. 18 to 20 were the result of a collaboration between Madison and Hamilton.
 
 Test set:  49-50-51-52-53-54-55-56-57-58-62-63
 
