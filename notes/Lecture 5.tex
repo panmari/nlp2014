@@ -1,0 +1,77 @@
+\documentclass[11pt]{article}
+%Gummi|065|=)
+\title{\textbf{Natural language processing}}
+\usepackage[utf8]{inputenc}
+\usepackage{mathtools}
+\usepackage{fullpage}
+\usepackage{hyperref}
+\usepackage{amssymb}
+\author{Stefan Moser}
+\date{}
+\begin{document}
+
+\maketitle
+
+\section{Spell checking, 24. March 2014}
+
+\subsection{Damereau-Levenstein metric}
+\label{sub:levenstein}
+Tries to rank similarity/difference between two tokens: Add up number of
+\begin{itemize}
+	\item Swappings
+	\item Insertions
+	\item Deletions
+\end{itemize}
+to go from String $a$ to String $b$. We build up matrix $D$ in the following way:
+
+\begin{equation}
+	\qquad D_{a,b}(i,j) = \begin{cases}
+  \max(i,j) & \text{ if} \min(i,j)=0, \\
+  \min \begin{cases}
+          D_{a,b}(i-1,j) + 1 \\
+          D_{a,b}(i,j-1) + 1 \\
+          D_{a,b}(i-1,j-1) + 1_{(a_i \neq b_j)}
+       \end{cases} & \text{ otherwise.}
+\end{cases}
+\end{equation}
+Then we can take the value at the bottom right as distance.
+% subsection levenstein (end)
+
+\subsection{Probabilistic methods}
+\label{sub:probabilistic_methods}
+
+For a misspelled token $t$, we can find order the canditates by using $f(c)$ of some 
+candidate $c$ by evaluating
+\begin{equation}
+	f(c) = p(c) \cdot p(c|t)
+\end{equation}
+$p(c)$ models the probability of the candidate (can be easily modeled, apply some smoothing)
+, $p(c|t)$ models the misspellings (noise). 
+\subsubsection{Modeling misspellings}
+\label{ssub:model_misspellings}
+Build up confusion matrix that models the probability, some character $q$ was misplaced with some other character $r$. Use this to evaluate probability of some misspelling $t$ of our word $c$. Confusion matrix may be learnt, personalized or device specific. Much better would be to take context into account, too!
+% subsubsection model_misspellings (end)
+
+% subsection probabilistc_methods (end)
+
+\subsubsection{Evaluation/Conclusion}
+Many errors go undetectd, e.g. grammatical errors, homophones, etc.
+
+\section{Markov Models}
+\label{sec:markov_models}
+Graph with nodes/states $S$, fully connected. Every edge has a certain probability 
+(may be 0). Outgoing/incoming probabilities must sum up to 1. Probabilities are displayable 
+as matrix. Every path through the graph does have a certain probability ($x_n$ is the state
+at some time $n$, state changes every timestep (may change to same again)):
+\begin{equation}
+	p(x_0 = s_{j0}) \cdot p(x_1 = s_{j1} |x_0 = s_{j0}) \cdot p(x_2 = s_{j2} | x_0 = s_{j0}, x_1 = s_{j1})\ldots
+\end{equation}
+As simplification, we usually assume that the probability of the 
+next state is only dependent on the current state (\emph{memoryless property, markov property}). This probability can be easily read from the matrix constructed before.
+We also assume that the probabilities don't change with time (are the same for every $x_n$).
+
+Initial distribution: all states have the same probability
+% section markov_models (end)
+
+
+\end{document}
