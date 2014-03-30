@@ -1,3 +1,7 @@
+# comment out this line to try pythons own hash method
+
+from ex5.ex1 import hash
+
 class MyDictionary:
 
     def __init__(self, capacity=100):

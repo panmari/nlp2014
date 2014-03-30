@@ -1,0 +1,15 @@
+With own hash method:
+
+Size: 11198
+Capacity: 32000
+Max collision count: 4
+Collisions overall: 2627
+
+
+with python hash method:
+
+Size: 11188
+Capacity: 32000
+Max collision count: 4
+Collisions overall: 2637
+
