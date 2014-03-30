@@ -10,7 +10,7 @@ class MyDictionary:
         already exists, throws an Exception """
         pos = self.get_position(string)
         if self.d[pos] == string:
-            raise '%s does already exist in dictionary!'.format(string)
+            raise KeyError('{} does already exist in dictionary!'.format(string))
         else:
             self.d[pos] = string
             self.used_slots += 1
@@ -23,7 +23,7 @@ class MyDictionary:
         the string is not in the dictionary yet, throws an Exception"""
         pos = self.get_position(string)
         if self.d[pos] is None:
-            raise '%s was not present in dictionary'.format(string)
+            raise KeyError('{} was not present in dictionary'.format(string))
         else:
             self.d[pos] = None
             self.used_slots -= 1
