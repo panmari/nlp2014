@@ -30,7 +30,17 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual('b', d.lookUp('b'))
         self.assertEqual('c', d.lookUp('c'))
 
-
+    def test_resize(self):
+        d = MyDictionary(100)
+        # insert a, aa, aaa, etc..
+        for i in range(72, 72+100):
+            d.insert(chr(i))
+        self.assertEqual('H', d.lookUp('H'))
+        self.assertEqual('J', d.lookUp('J'))
+        self.assertEqual(100, d.entries)
+        self.assertTrue(d.size() > 50)
+        self.assertEqual(200, d.capacity)
+        print(d.d)
 
 if __name__ == '__main__':
     unittest.main()
