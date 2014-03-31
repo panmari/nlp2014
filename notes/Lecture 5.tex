@@ -57,11 +57,11 @@ Build up confusion matrix that models the probability, some character $q$ was mi
 \subsubsection{Evaluation/Conclusion}
 Many errors go undetectd, e.g. grammatical errors, homophones, etc.
 
-\section{Markov Models}
+\subsection{Markov Models}
 \label{sec:markov_models}
 Graph with nodes/states $S$, fully connected. Every edge has a certain probability 
 (may be 0). Outgoing/incoming probabilities must sum up to 1. Probabilities are displayable 
-as matrix. Every path through the graph does have a certain probability ($x_n$ is the state
+as matrix $P$. Every path through the graph (Observed sequence $X$) does have a certain probability ($x_n$ is the state
 at some time $n$, state changes every timestep (may change to same again)):
 \begin{equation}
 	p(x_0 = s_{j0}) \cdot p(x_1 = s_{j1} |x_0 = s_{j0}) \cdot p(x_2 = s_{j2} | x_0 = s_{j0}, x_1 = s_{j1})\ldots
@@ -73,5 +73,36 @@ We also assume that the probabilities don't change with time (are the same for e
 Initial distribution: all states have the same probability
 % section markov_models (end)
 
+\section{Hidden Markov models HMM, 31. March 2014}
+In a hidden Markov model, the states $S$ are not directly observable. Transitions are visible
+by emitting symbols (either \emph{arc-emission} HMM or \emph{state-emission} HMM).
+So for a HMM we have further
+\begin{itemize}
+	\item $K$ - set of possible symbols
+	\item $O$ - set of observed symbols
+	\item $B, b_{ijk}$ probability of emitting symbol $k$ when when transitioning from 
+	$s_i$ to $s_j$.
+\end{itemize}
 
+See urn-drawing-genie example. Genie is only telling color of ball drawn, but not what urn
+it was drawn from. 
+
+\subsection{Crazy drink machine}
+Probability of Sequence O = \{ Limonade, Water \} is equal to summing up all possible ways
+through a tree of possibilities. See slides.
+
+Other example with O =  \{ Coffee, Coffee \}:
+\begin{eqnarray*}
+	p(cof, cof | cf; cf; cf) = 0.6 \cdot 0.7\cdot 0.6 \cdot 0.7 \\
+	p(cof, cof | cf; cf; wp) = 0.6 \cdot 0.7\cdot 0.6\cdot0.3 \\
+	p(cof, cof | cf; wp; cf) = 0.6 \cdot 0.3\cdot 0.1\cdot 0.5 \\
+	p(cof, cof | cf; wp; wp) = 0.6 \cdot 0.3\cdot 0.1\cdot 0.5
+\end{eqnarray*}
+All possible sequences are hard to compute! Use dynamic programming. Can do this forward
+and backward. Forward lets you set start-state of HMM, backward lets you set finishing
+state of HMM.
+
+We can also retrieve the most likely path through HMM with ... stuff naive algorithm does
+ not take probabilities of state changes into account! For correct result, we need to
+ apply \emph{Viterbi algorithm}.
 \end{document}
