@@ -18,4 +18,11 @@ for word in flw:
             if word_changed in en_dictionary:
                 valid_constructed_flw.add(word_changed)
 
+print("Constructed {} new words by substituting only one letter: ".format(len(valid_constructed_flw)))
 print(valid_constructed_flw)
+
+# add constructed words to previous dictionary
+
+flw_incl_constructed = flw.union(valid_constructed_flw)
+
+# do something with it?
