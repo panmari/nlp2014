@@ -1,4 +1,4 @@
-With own hash method:
+With FNV-1 hash method:
 
 Size: 11198
 Capacity: 32000

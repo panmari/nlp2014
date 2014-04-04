@@ -1,7 +1,6 @@
-__author__ = 'mazzzy'
-
 import unittest
 import re
+
 
 class MyTestCase(unittest.TestCase):
 
