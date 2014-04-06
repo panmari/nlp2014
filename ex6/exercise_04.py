@@ -19,7 +19,7 @@ class Soundex:
     def encode(self, input):
         soundex_string = input[0]
         for char in input[1:]:
-            # get with empty string as default value
+            # get with empty string as default value, so we can handle unknown characters
             soundex_append = self.soundex_translator_inv.get(char.upper(), '')
             if soundex_append != '0' and soundex_append != soundex_string[-1]:
                 soundex_string += soundex_append
@@ -32,7 +32,7 @@ import numpy
 class DamerauLevenshtein:
 
     def compute(self, first, second):
-        # d is a table with lenStr1+1 rows and lenStr2+1 columns
+        # Using a numpy matrix for summing up distance
         d = numpy.zeros(len(first)*len(second)).reshape((len(first), len(second)))
 
         for i,c in enumerate(first):
@@ -40,8 +40,6 @@ class DamerauLevenshtein:
         for j,c in enumerate(second):
             d[0, j] = j
 
-        # pseudo-code assumes string indices start at 1, not 0
-        # if implemented, make sure to start comparing at 1st letter of strings
         for i, c_first in enumerate(first):
             for j, c_second in enumerate(second):
                 if c_first == c_second:

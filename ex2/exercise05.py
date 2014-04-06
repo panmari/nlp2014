@@ -15,5 +15,7 @@ with open('input_ex5.txt') as f:
         for candidate_word in line.split():
             m = p.match(candidate_word)
             if m:
+                if ':' in m.groups(0):
+                    raise Exception('Contains colon')
                 word_count += 1
         print("{}: {}".format(word_count, line.strip()))
