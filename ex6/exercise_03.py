@@ -1,5 +1,5 @@
 
-from ex6.exercise_01 import get_four_letter_words
+from exercise_01 import get_four_letter_words
 import string
 import sys
 
@@ -26,10 +26,11 @@ def spellcheck(word):
 
     return possible_correct_spellings
 
-sys.argv.append('eerh')
-if len(sys.argv) != 2:
-    print('Give exactly one word as parameter')
-else:
-    corrections = spellcheck(sys.argv[1])
-    print('Found {} possible words:'.format(len(corrections)))
-    print(corrections)
+
+if __name__ == '__main__':
+    if len(sys.argv) != 2:
+        print('Give exactly one word as parameter')
+    else:
+        corrections = spellcheck(sys.argv[1])
+        print('Found {} possible words:'.format(len(corrections)))
+        print(corrections)

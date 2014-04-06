@@ -73,13 +73,19 @@ def spellcheck(word):
     for tuple in sorted_corrections:
         print(tuple)
 
+
+import sys
 if __name__ == '__main__':
-    # gian -> misspelling for gain (does work)
-    # rack -> misspelling for rock (does work)
-    # dyne -> misspelling for deny (does work, but is not top suggestion)
-    # cas -> misspelling for case (does work)
-    # gail -> misspelling for jail (does not work, since soundex gives too much weight to first character)
-    for testword in ['gian', 'rack', 'dyne', 'cas', 'gail']:
-        print("Doing spellcheck for {}...".format(testword))
-        spellcheck(testword)
-        print("\n")
+    if len(sys.argv) > 1:
+        spellcheck(sys.argv[1])
+    else:
+        # run test:
+        # gian -> misspelling for gain (does work)
+        # rack -> misspelling for rock (does work)
+        # deyn -> misspelling for deny (does work)
+        # cas -> misspelling for case (does work)
+        # gail -> misspelling for jail (does not work, since soundex gives too much weight to first character)
+        for testword in ['gian', 'rack', 'deyn', 'cas', 'gail']:
+            print("Doing spellcheck for {}...".format(testword))
+            spellcheck(testword)
+            print("\n")
