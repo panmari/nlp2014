@@ -1,7 +1,7 @@
-__author__ = 'mazzzy'
+
 
 import unittest
-from ex6.exercise_04 import DamerauLevenshtein
+from exercise_04 import DamerauLevenshtein
 
 class SomeLevenshteinTests(unittest.TestCase):
 

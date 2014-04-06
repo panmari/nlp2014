@@ -55,7 +55,7 @@ class DamerauLevenshtein:
 
         return d[-1, -1]
 
-from ex6.exercise_01 import get_four_letter_words
+from exercise_01 import get_four_letter_words
 
 def spellcheck(word):
     flw = get_four_letter_words()

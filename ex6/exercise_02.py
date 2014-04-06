@@ -1,4 +1,4 @@
-from ex6.exercise_01 import get_four_letter_words
+from exercise_01 import get_four_letter_words
 import string
 import codecs
 en_dictionary = set()

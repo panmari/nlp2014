@@ -1,7 +1,7 @@
-__author__ = 'mazzzy'
+
 
 import unittest
-from ex6.exercise_04 import Soundex
+from exercise_04 import Soundex
 
 class MyTestCase(unittest.TestCase):
 
