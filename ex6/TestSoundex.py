@@ -1,12 +1,12 @@
 __author__ = 'mazzzy'
 
 import unittest
-from ex6.exercise_04 import soundex
+from ex6.exercise_04 import Soundex
 
 class MyTestCase(unittest.TestCase):
 
     def test_something(self):
-        s = soundex()
+        s = Soundex()
         self.assertEqual('T620', s.encode('Trough'))
         self.assertEqual('T200', s.encode('Though'))
         self.assertEqual('P450', s.encode('Plane'))

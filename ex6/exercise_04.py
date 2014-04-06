@@ -1,6 +1,6 @@
 # do Soundex, compute levenstein distance on that (allow swapping of letters).
 
-class soundex:
+class Soundex:
 
     def __init__(self):
         soundex_translator = { 0: ['A', 'E', 'I', 'O', 'U', 'H', 'W', 'Y'],  # ignore these
@@ -29,7 +29,7 @@ class soundex:
 
 import numpy
 
-class damerauLevenshtein:
+class DamerauLevenshtein:
 
     def compute(self, first, second):
         # d is a table with lenStr1+1 rows and lenStr2+1 columns
@@ -56,3 +56,32 @@ class damerauLevenshtein:
                                   d[i-2, j-2] + cost)   # transposition
 
         return d[-1, -1]
+
+from ex6.exercise_01 import get_four_letter_words
+
+def spellcheck(word):
+    flw = get_four_letter_words()
+    s = Soundex()
+    word_soundex = s.encode(word)
+    possible_soundex_corrections = list()
+    for w in flw:
+        if word_soundex == s.encode(w):
+            possible_soundex_corrections.append(w)
+    d = DamerauLevenshtein()
+    correction_distances = dict(zip(possible_soundex_corrections, [d.compute(x, word) for x in possible_soundex_corrections]))
+    # sort dictionary by distances
+    sorted_corrections = sorted(correction_distances.items(), key=lambda x: x[1])
+    print('Found the following possible correct spellings, ordered by distance:')
+    for tuple in sorted_corrections:
+        print(tuple)
+
+if __name__ == '__main__':
+    # gian -> misspelling for gain (does work)
+    # rack -> misspelling for rock (does work)
+    # dyne -> misspelling for deny (does work, but is not top suggestion)
+    # cas -> misspelling for case (does work)
+    # gail -> misspelling for jail (does not work, since soundex gives too much weight to first character)
+    for testword in ['gian', 'rack', 'dyne', 'cas', 'gail']:
+        print("Doing spellcheck for {}...".format(testword))
+        spellcheck(testword)
+        print("\n")
