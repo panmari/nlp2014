@@ -88,7 +88,10 @@ T_1 =
 \ell_4 &   p   &   0   &   0   &   p -1   &   0  \\ 
 }
 \]
-
+The markov chain defined here is irreducible, since for every $l_i$ we can reach 
+every other $l_j$ for every $p \in [0,1]$. If we assume $p > 0$ without loss of
+generalization (just define $p' = p - 1$ otherwise) we can simply go $4$ times into 
+the direction with probability $p$ and reach every other state with a nonzero probability.
 
 \section*{Exercise 3}
 For the transition matrix
@@ -131,11 +134,33 @@ we can draw the graph as
         edge [loop right] node {1} (4);
 \end{tikzpicture}
 \end{figure}
-First, we want to find out the probability of starting in B and ending up in A
-after 8 transitions.
-
-
+First, we want to find out the probability $p_{B,A,8}$ of starting in B and ending up in A
+after 8 transitions. For this we define the probability $p_l = 0.9 \cdot 0.1$ as probability of making
+the loop between state B and state C. This lets us define the probability of reaching A
+with infinite many transitions as
+\begin{equation}
+	p_{B,A,\infty} = 0.9 + p_l^1 \cdot 0.9 + p_l^2 \cdot 0.9 + p_l^3 \cdot 0.9 +  p_l^4 \cdot 0.9 + \ldots
+\end{equation}
+Since we are only interested in paths of lenght 8 and less, we can reduce it to the 
+first four terms, since the every B-C loop takes two transitions.
+\begin{align}
+	p_{B,A,8} 	&= 0.9 + p_l^1 \cdot 0.9 + p_l^2 \cdot 0.9 + p_l^3 \cdot 0.9 \\
+				&= 0.9889461
+\end{align}
+Further we need to evalute the probability $p_{C,D,6}$ of being in state D after 6 
+transitions when starting in state C. For this purpose we can again employ the
+definition of $p_l$
+\begin{equation}
+	p_{C,D,\infty} = 0.1 + p_l^1 \cdot 0.1 + p_l^2 \cdot 0.1 + 
+						p_l^3 \cdot 0.1 + p_l^4 \cdot 0.1 + \ldots
+\end{equation}
+If we again restrict ourself to 6 transitions and use the loops size of 2, we arrive at
+\begin{align}
+	p_{C,D,6} &= 0.1 + p_l^1 \cdot 0.1 + p_l^2 \cdot 0.1 \\
+				&= 0.10981
+\end{align}
 \section*{Exercise 4}
+Using the hidden markov model of the crazy machine as defined in table \ref{tab:crazy_machine} and figure \ref{fig:crazy_machine},
 \begin{figure}[h]
 \center
 \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=5cm,
@@ -150,7 +175,20 @@ after 8 transitions.
     	edge [bend left] node {0.3} (2)
     (2) edge [bend left] node {0.5} (1)
     	edge [loop below] node {0.5} (2);
-    	
 \end{tikzpicture}
+\caption{Markov chain of the crazy machine.}
+\label{fig:crazy_machine}
 \end{figure}
+\begin{table}
+\center
+\begin{tabular}{|c|c|c|c|}
+	\hline
+	& coffee & water & lemonade \\  \hline
+	WP & 0.6 & 0.1 & 0.3 		\\ 	\hline
+	CF & 0.1 & 0.7 & 0.2 		\\
+	\hline
+\end{tabular}
+\caption{Emission probabilities for the crazy machine.}
+\label{tab:crazy_machine}
+\end{table}
 \end{document}
