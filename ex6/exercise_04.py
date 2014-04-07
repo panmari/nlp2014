@@ -67,7 +67,7 @@ def spellcheck(word):
             possible_soundex_corrections.append(w)
     d = DamerauLevenshtein()
     correction_distances = dict(zip(possible_soundex_corrections, [d.compute(x, word) for x in possible_soundex_corrections]))
-    # sort dictionary by distances
+    # sort dictionary by distances (converts to tuple for this purpose)
     sorted_corrections = sorted(correction_distances.items(), key=lambda x: x[1])
     print('Found the following possible correct spellings, ordered by distance:')
     for tuple in sorted_corrections:

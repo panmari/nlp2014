@@ -105,4 +105,67 @@ state of HMM.
 We can also retrieve the most likely path through HMM with ... stuff naive algorithm does
  not take probabilities of state changes into account! For correct result, we need to
  apply \emph{Viterbi algorithm}.
+ 
+\section{Parsing natural language, structure of sentence}
+\subsection{Motivation}
+Can be used for 
+\begin{itemize}
+	\item grammar checkin, aka spell check
+	\item Question Answering (QA), building automatic systems for answering real questions.
+	\item Information extraction (IE), e.g. from newspaper everything concerning...
+\end{itemize} 
+For this, we need formulate formal language, consisting of strings of terminal symbols,
+grammar as set of rules on this language.
+
+\subsection{Chomsky Hierarchy}
+Various different grammars possible. Sentences can be generated using such a grammer or \emph{analyzed}!
+
+\paragraph{Regular} consists of nonterminal $\rightarrow$ terminal | teriminal nonterminal (e.g. $a^nb^m$)
+\paragraph{Context-free} nonterminal $\rightarrow$ anything
+\paragraph{Context-sensitive} more nonterminals on lighthand side or right hand side
+\paragraph{Recursively enumerable} \emph{no constraint here}, hard to evaluate by a computer.
+
+\subsection{Grammar categories}
+Number of non-terminal categories? Usually only 8, divided into two classes
+\paragraph{Closed classes} pronouns, determiners, conjunctions, prepositions (no terms can
+be added here)
+\paragraph{Open classes} nouns, verbs, adverbs (only, rather, ..), adjectives (new terms
+can be created, assembled)
+
+\subsection{Morphology}
+Changes to words, e.g. suffixes. There are many ambiguities, not sure to what class
+word belongs, e.g. round may be adj/verb etc.
+
+Usually we do this dictionary based, take cannonical form of every word and save class in
+dictionary, use it to look up. Also include some flexion rules for every word, so it can
+be verified if search term can be generated from this canonical form. When looking up, just
+try out all morphological rules available
+
+We can play around with a restricted vocabulary (Wumpus grammar). 
+
+\subsection{Shallow parsing}
+For performance baseline. Tag every word with its most common POS, disregarding other
+possibilities. Leads to 75\% success rate for french. By adding rules you make
+a \emph{deep parser} that has up to 97\% success rate.
+
+\subsection{Deep parsing}
+Word order can be used as hint for function of a word.
+
+\subsection{Parsing strategies}
+Either top down (expectation driven, tree from starting $S$) or bottom up (data driven).
+
+\subsubsection{Top down parsing}
+Have some rules, put in full sentence, split it more and more up until you end at
+terminal symbol with every rule. There are fail states that need trace backs once in a while.
+
+\subsubsection{Bottom up parsing}
+Apply rules greadily to every word from the left, build up until you only have one node
+left (root). May have fail states again, which restrict grammar to end up with root
+node before whole sentence is parsed.
+
+\subsubsection{Chart parsing}
+Most efficient. Try everything, but don't try it more than once. Idea is to combine best 
+of top-down and bottom-up. Interprete everything as graph problem: Nodes are word boundaries,
+define arcs that are basically part sentences. Assemble tree that has no overlapping
+arcs.
 \end{document}
