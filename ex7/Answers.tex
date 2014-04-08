@@ -161,8 +161,10 @@ If we again restrict ourself to 6 transitions and use the loops size of 2, we ar
 				&= 0.10981
 \end{align}
 \section*{Exercise 4}
-Using the hidden markov model of the crazy machine as defined in table \ref{tab:crazy_machine} and figure \ref{fig:crazy_machine}, we can compute the forward 
+Using the hidden markov model of the crazy machine as defined in Table \ref{tab:crazy_machine} and Figure \ref{fig:crazy_machine}, we can compute the forward probability \ref{fig:crazy_forward} and backward
+probability \ref{fig:crazy_backward}
 probability
+\begin{table}
 \center
 \begin{tabular}{|c|c|p{2cm}|p{3cm}|p{3.5cm}|}
 	\hline
@@ -183,6 +185,22 @@ probability
 										 							  = 0.05769	\\
 	\hline
 \end{tabular}
+\caption{The forward algorithm applied to the sequence O = \{coffee, coffee, lemonade\} }
+\label{fig:crazy_forward}
+\end{table}
+\begin{table}
+\center
+\begin{tabular}{|c|c|p{2cm}|p{3cm}|p{3.5cm}|}
+	\hline
+	state\textbackslash time & $t_0$ coffee 	& $t_1$ coffee & $t_2$ lemonade & $t_3$ \\  \hline
+	$\alpha$(CF) 			&  & & 0.3 & 1 \\ \hline
+	$\alpha$(WP) 			&  & & 0.2 & 1		\\ \hline
+	P(O) 		 			&  & & 	0.5	&  \\
+	\hline
+\end{tabular}
+\caption{The backward algorithm applied to the sequence O = \{coffee, coffee, lemonade\} }
+\label{fig:crazy_forward}
+\end{table}
 \begin{figure}[h]
 \center
 \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=5cm,
@@ -205,9 +223,9 @@ probability
 \center
 \begin{tabular}{|c|c|c|c|}
 	\hline
-	& coffee & water & lemonade \\  \hline
-	WP & 0.6 & 0.1 & 0.3 		\\ 	\hline
-	CF & 0.1 & 0.7 & 0.2 		\\
+	   & coffee & water & lemonade \\  \hline
+	CF & 0.6 & 0.1 & 0.3 		\\ \hline
+	WP & 0.1 & 0.7 & 0.2 		\\ 	
 	\hline
 \end{tabular}
 \caption{Emission probabilities for the crazy machine.}
