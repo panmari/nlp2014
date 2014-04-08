@@ -190,12 +190,20 @@ probability
 \end{table}
 \begin{table}
 \center
-\begin{tabular}{|c|c|p{2cm}|p{3cm}|p{3.5cm}|}
+\begin{tabular}{|c|p{3cm}|p{3cm}|p{3cm}|p{3.5cm}|}
 	\hline
 	state\textbackslash time & $t_0$ coffee 	& $t_1$ coffee & $t_2$ lemonade & $t_3$ \\  \hline
-	$\alpha$(CF) 			&  & & 0.3 & 1 \\ \hline
-	$\alpha$(WP) 			&  & & 0.2 & 1		\\ \hline
-	P(O) 		 			&  & & 	0.5	&  \\
+	$\alpha$(CF) 			& 0.186 * 0.7 * 0.6 + \newline
+							  0.019 * 0.5 * 0.6 \newline
+							  = 0.08382 & 0.3 * 0.7 * 0.6 + \newline
+								 0.2 * 0.5 * 0.6 \newline
+								 = 0.186 & 0.3 & 1 \\ \hline
+	$\alpha$(WP) 			& 0.186 * 0.3 * 0.1 + \newline
+							  0.019 * 0.5 * 0.1 \newline
+							  = 0.00653 & 0.3 * 0.3 * 0.1 + \newline
+								 0.2 * 0.5 * 0.1 \newline
+								 = 0.019 & 0.2 & 1		\\ \hline
+	P(O) 		 			& 0.09035 & 0.205 & 	0.5	&  \\
 	\hline
 \end{tabular}
 \caption{The backward algorithm applied to the sequence O = \{coffee, coffee, lemonade\} }
