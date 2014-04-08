@@ -3,6 +3,7 @@
 \documentclass{article}
 \usepackage{tikz}
 \usepackage{mathtools,kbordermatrix}
+\usepackage{pbox}
 \usetikzlibrary{arrows}
 \begin{document}
 \section*{Exercise 1}
@@ -57,10 +58,10 @@ denoted as $\ell_i$:
   \tikzstyle{pathtaken} = [draw,line width=5pt,-,red!50]
 
   \node[main node] (0) {$\ell_0$};
-  \node[main node] (1) [below left of=0] {$\ell_1$};
+  \node[main node] (1) [below right of=0] {$\ell_1$};
   \node[main node] (2) [below of=1] {$\ell_2$};
-  \node[main node] (3) [right of=2] {$\ell_3$};
-  \node[main node] (4) [below right of=0] {$\ell_4$};
+  \node[main node] (4) [below left of=0] {$\ell_4$};
+  \node[main node] (3) [below of=4] {$\ell_3$};
   \path[every node/.style={font=\sffamily\small}]
     (0) edge node {p} (1) 
     	edge [bend left] node {p-1} (4)
@@ -160,7 +161,23 @@ If we again restrict ourself to 6 transitions and use the loops size of 2, we ar
 				&= 0.10981
 \end{align}
 \section*{Exercise 4}
-Using the hidden markov model of the crazy machine as defined in table \ref{tab:crazy_machine} and figure \ref{fig:crazy_machine},
+Using the hidden markov model of the crazy machine as defined in table \ref{tab:crazy_machine} and figure \ref{fig:crazy_machine}, we can compute the forward 
+probability
+\center
+\begin{tabular}{|c|c|p{2cm}|p{3cm}|c|}
+	\hline
+	state\textbackslash time & $t_0$ coffee 	& $t_1$ coffee & $t_2$ lemonade & $t_3$ \\  \hline
+	$\alpha$(CF) 			& 1 & 0.7 * 0.6 \newline= 0.42	& 0.42 * 0.7 * 0.2 + \newline
+															  0.03 * 0.5 * 0.2 \newline
+															  = 0.0588 + 0.003 \newline
+															  = 0.0618 & 		\\ \hline
+	$\alpha$(WP) 			& 0 & 0.3 * 0.1 \newline = 0.03 & 0.03 * 0.5 * 0.3 + \newline
+															  0.42 * 0.3 * 0.3 \newline
+															  = 0.0423 &		\\ \hline
+	P(O) 		 			& 1 & 0.45 & 0.0618 + 0.0423 \newline 
+										 = 0.1041 & 		\\
+	\hline
+\end{tabular}
 \begin{figure}[h]
 \center
 \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=5cm,
