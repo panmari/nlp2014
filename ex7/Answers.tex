@@ -64,15 +64,15 @@ denoted as $\ell_i$:
   \node[main node] (3) [below of=4] {$\ell_3$};
   \path[every node/.style={font=\sffamily\small}]
     (0) edge node {p} (1) 
-    	edge [bend left] node {p-1} (4)
+    	edge [bend left] node {1-p} (4)
     (1) edge node {p} (2) 
-    	edge [bend left] node {p-1} (0)    
+    	edge [bend left] node {1-p} (0)    
     (2) edge node {p} (3) 
-    	edge [bend left] node {p-1} (1)
+    	edge [bend left] node {1-p} (1)
     (3) edge node {p} (4) 
-    	edge [bend left] node {p-1} (2) 
+    	edge [bend left] node {1-p} (2) 
     (4) edge node {p} (0) 
-    	edge [bend left] node {p-1} (3);
+    	edge [bend left] node {1-p} (3);
 \end{tikzpicture}
 \end{figure}
 
@@ -82,10 +82,10 @@ This leads to the transition matrix
 T_1 = 
 \kbordermatrix{
     & \ell_0& \ell_1&\ell_2 & \ell_3 & \ell_4\\
-\ell_0 &   0   &   p   &   0   &   0   &   p-1   \\ 
-\ell_1 &   p-1   &   0   &   p   &   0   &   0   \\ 
-\ell_2 &   0   &   p-1   &   0   &   p   &   0   \\ 
-\ell_3 &   0   &   0   &   p-1   &   0   &   p  \\ 
+\ell_0 &   0   &   p   &   0   &   0   &   1-p   \\ 
+\ell_1 &   1-p   &   0   &   p   &   0   &   0   \\ 
+\ell_2 &   0   &   1-p   &   0   &   p   &   0   \\ 
+\ell_3 &   0   &   0   &   1-p   &   0   &   p  \\ 
 \ell_4 &   p   &   0   &   0   &   p -1   &   0  \\ 
 }
 \]
@@ -164,16 +164,16 @@ If we again restrict ourself to 6 transitions and use the loops size of 2, we ar
 Using the hidden markov model of the crazy machine as defined in table \ref{tab:crazy_machine} and figure \ref{fig:crazy_machine}, we can compute the forward 
 probability
 \center
-\begin{tabular}{|c|c|p{2cm}|p{3cm}|c|}
+\begin{tabular}{|c|c|p{2cm}|p{3cm}|p{3cm}|}
 	\hline
 	state\textbackslash time & $t_0$ coffee 	& $t_1$ coffee & $t_2$ lemonade & $t_3$ \\  \hline
-	$\alpha$(CF) 			& 1 & 0.7 * 0.6 \newline= 0.42	& 0.42 * 0.7 * 0.2 + \newline
-															  0.03 * 0.5 * 0.2 \newline
-															  = 0.0588 + 0.003 \newline
-															  = 0.0618 & 		\\ \hline
-	$\alpha$(WP) 			& 0 & 0.3 * 0.1 \newline = 0.03 & 0.03 * 0.5 * 0.3 + \newline
-															  0.42 * 0.3 * 0.3 \newline
-															  = 0.0423 &		\\ \hline
+	$\alpha$(CF) 			& 1 & 0.7 * 0.6 \newline= 0.42	& 0.42 * 0.7 * 0.6 + \newline
+															  0.03 * 0.5 * 0.1 \newline
+															  = 0.1779 &  0.1779 * 0.2* 0.6	+ \newline
+															  	\\ \hline
+	$\alpha$(WP) 			& 0 & 0.3 * 0.1 \newline = 0.03 & 0.03 * 0.5 * 0.6 + \newline
+															  0.42 * 0.3 * 0.1 \newline
+															  = 0.0216 & 		\\ \hline
 	P(O) 		 			& 1 & 0.45 & 0.0618 + 0.0423 \newline 
 										 = 0.1041 & 		\\
 	\hline
