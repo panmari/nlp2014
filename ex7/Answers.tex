@@ -86,12 +86,12 @@ T_1 =
 \ell_1 &   1-p   &   0   &   p   &   0   &   0   \\ 
 \ell_2 &   0   &   1-p   &   0   &   p   &   0   \\ 
 \ell_3 &   0   &   0   &   1-p   &   0   &   p  \\ 
-\ell_4 &   p   &   0   &   0   &   p -1   &   0  \\ 
+\ell_4 &   p   &   0   &   0   &   1-p   &   0  \\ 
 }
 \]
 The markov chain defined here is irreducible, since for every $l_i$ we can reach 
 every other $l_j$ for every $p \in [0,1]$. If we assume $p > 0$ without loss of
-generalization (just define $p' = p - 1$ otherwise) we can simply go $4$ times into 
+generalization (just define $p' = 1 - p$ otherwise) we can simply go $4$ times into 
 the direction with probability $p$ and reach every other state with a nonzero probability.
 
 \section*{Exercise 3}
@@ -164,18 +164,23 @@ If we again restrict ourself to 6 transitions and use the loops size of 2, we ar
 Using the hidden markov model of the crazy machine as defined in table \ref{tab:crazy_machine} and figure \ref{fig:crazy_machine}, we can compute the forward 
 probability
 \center
-\begin{tabular}{|c|c|p{2cm}|p{3cm}|p{3cm}|}
+\begin{tabular}{|c|c|p{2cm}|p{3cm}|p{3.5cm}|}
 	\hline
 	state\textbackslash time & $t_0$ coffee 	& $t_1$ coffee & $t_2$ lemonade & $t_3$ \\  \hline
 	$\alpha$(CF) 			& 1 & 0.7 * 0.6 \newline= 0.42	& 0.42 * 0.7 * 0.6 + \newline
 															  0.03 * 0.5 * 0.1 \newline
-															  = 0.1779 &  0.1779 * 0.2* 0.6	+ \newline
+															  = 0.1779 &  0.1779 * 0.7 * 0.3	+ \newline
+															  			  0.0216 * 0.5 * 0.2 \newline
+															  			  = 0.039519
 															  	\\ \hline
 	$\alpha$(WP) 			& 0 & 0.3 * 0.1 \newline = 0.03 & 0.03 * 0.5 * 0.6 + \newline
 															  0.42 * 0.3 * 0.1 \newline
-															  = 0.0216 & 		\\ \hline
+															  = 0.0216 &  0.1779 * 0.3 * 0.3	+ \newline
+															  			  0.0216 * 0.5 * 0.2 \newline
+															  			  = 0.018171		\\ \hline
 	P(O) 		 			& 1 & 0.45 & 0.0618 + 0.0423 \newline 
-										 = 0.1041 & 		\\
+										 = 0.1041 					& 0.039519 + 0.018171 \newline
+										 							  = 0.05769	\\
 	\hline
 \end{tabular}
 \begin{figure}[h]
