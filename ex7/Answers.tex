@@ -106,7 +106,7 @@ C &   0   &   0.9   &   0   &   0.1   \\
 D &   0   &   0   &   0   &   1   \\ 
 }
 \]
-we can draw the graph as
+we can draw the graph as visible in Figure \ref{fig:ex3}.
 \begin{figure}[h]
 \center
 \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=5cm,
@@ -134,6 +134,8 @@ we can draw the graph as
     
         edge [loop right] node {1} (4);
 \end{tikzpicture}
+\label{fig:ex3}
+\caption{Graph of the markov chain defined for exercise 3.}
 \end{figure}
 First, we want to find out the probability $p_{B,A,8}$ of starting in B and ending up in A
 after 8 transitions. For this we define the probability $p_l = 0.9 \cdot 0.1$ as probability of making
@@ -148,6 +150,10 @@ first four terms, since the every B-C loop takes two transitions.
 	p_{B,A,8} 	&= 0.9 + p_l^1 \cdot 0.9 + p_l^2 \cdot 0.9 + p_l^3 \cdot 0.9 \\
 				&= 0.9889461
 \end{align}
+An alternative way to obtain this solution would be to compute
+\begin{equation}
+	\pi_B \cdot T_2^8 = [0, 1, 0, 0] \cdot T_2^8 = [0.9889, 0.0001, 0, 0.0110]
+\end{equation}
 Further we need to evalute the probability $p_{C,D,6}$ of being in state D after 6 
 transitions when starting in state C. For this purpose we can again employ the
 definition of $p_l$
@@ -160,9 +166,13 @@ If we again restrict ourself to 6 transitions and use the loops size of 2, we ar
 	p_{C,D,6} &= 0.1 + p_l^1 \cdot 0.1 + p_l^2 \cdot 0.1 \\
 				&= 0.10981
 \end{align}
+Again we could use the alternative method to obtain
+\begin{equation}
+	\pi_C \cdot T_2^6 = [0, 0, 1, 0] \cdot T_2^6 = [ 0.8895,  0, 0.0007, 0.1098]
+\end{equation}
 \section*{Exercise 4}
-Using the hidden markov model of the crazy machine as defined in Table \ref{tab:crazy_machine} and Figure \ref{fig:crazy_machine}, we can compute the forward probability \ref{fig:crazy_forward} and backward
-probability \ref{fig:crazy_backward}
+Using the hidden markov model of the crazy machine as defined in Table \ref{tab:crazy_machine} and Figure \ref{fig:crazy_machine}, we can compute the forward probability (Table \ref{fig:crazy_forward}) and backward
+probability (Table \ref{fig:crazy_backward})
 probability
 \begin{table}
 \center
@@ -207,7 +217,7 @@ probability
 	\hline
 \end{tabular}
 \caption{The backward algorithm applied to the sequence O = \{coffee, coffee, lemonade\} }
-\label{fig:crazy_forward}
+\label{fig:crazy_backward}
 \end{table}
 \begin{figure}[h]
 \center
