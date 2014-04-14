@@ -212,12 +212,12 @@ probability
 															  			  0.0846 * 0.5 * 0.2 \newline
 															  			  = 0.047394
 															  	\\ \hline
-	$\alpha$(WP) 			& 0 & 0.3 * 0.6 \newline = 0.18 & 0.18 * 0.5 * 0.1 + \newline
-															  0.42 * 0.3 * 0.6 \newline
+	$\alpha$(WP) 			& 0 & 0.3 * 0.6 \newline = 0.18 & 0.42 * 0.3 * 0.6 + \newline
+															  0.18 * 0.5 * 0.1 \newline   
 															  = 0.0846 &  0.1854 * 0.3 * 0.3	+ \newline
 															  			  0.0846 * 0.5 * 0.2 \newline
 															  			  = 0.025146		\\ \hline
-	P(O) 		 			& 1 & 0.45 & 0.1854 + 0.0846 \newline 
+	P(O) 		 			& 1 & 0.60 & 0.1854 + 0.0846 \newline 
 										 = 0.27 					& 0.047394 + 0.025146 \newline
 										 							  = 0.07254	\\
 	\hline
@@ -230,20 +230,24 @@ probability
 \begin{tabular}{|c|p{3cm}|p{3cm}|p{3cm}|c|}
 	\hline
 	state\textbackslash time & $t_0$ coffee 	& $t_1$ coffee & $t_2$ lemonade & $t_3$ \\  \hline
-	$\alpha$(CF) 			& 0.186 * 0.7 * 0.6 + \newline
-							  0.019 * 0.5 * 0.6 \newline
-							  = 0.08382 & 0.3 * 0.7 * 0.6 + \newline
-								 0.2 * 0.5 * 0.6 \newline
-								 = 0.186 & 0.3 & 1 \\ \hline
-	$\alpha$(WP) 			& 0.186 * 0.3 * 0.1 + \newline
-							  0.019 * 0.5 * 0.1 \newline
-							  = 0.00653 & 0.3 * 0.3 * 0.1 + \newline
-								 0.2 * 0.5 * 0.1 \newline
-								 = 0.019 & 0.2 & 1		\\ \hline
-	P(O) 		 			& 0.09035 & 0.205 & 	0.5	&  \\
+	$\alpha$(CF) 			& 0.162 * 0.7 * 0.6 + \newline
+							  0.025 * 0.3 * 0.6 \newline
+							  = 0.07254 & 	 0.3 * 0.7 * 0.6 + \newline
+											 0.2 * 0.3 * 0.6 \newline
+											 = 0.162 & 1*0.7*0.3 + \newline
+								 		   1*0.3*0.3 = 0.3 & 1 \\ \hline
+	$\alpha$(WP) 			& 0.162 * 0.5 * 0.1 + \newline
+							  0.025 * 0.5 * 0.1 \newline
+							  = 0.00935 & 0.3 * 0.5 * 0.1 + \newline
+										   0.2 * 0.5 * 0.1 \newline
+										   = 0.025 & 1*0.5*0.2 + \newline
+								 		   1*0.5*0.2 = 0.2 & 1		\\ \hline
+	P(O) 		 			& 0.08189 & 0.187 & 	0.5	&  \\
 	\hline
 \end{tabular}
-\caption{The backward algorithm applied to the sequence O = \{coffee, coffee, lemonade\} }
+\caption{The backward algorithm applied to the sequence O = \{coffee, coffee, lemonade\}. We
+can verify our results by comparing $\alpha$(CF) at $t_0$ to P(O) at $t_2$ of the forward
+algorithm. They should be the same. }
 \label{tab:crazy_backward}
 \end{table}
 
