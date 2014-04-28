@@ -1,5 +1,5 @@
 
-import re
+import re, sys
 
 def give_contexts(search_term, n):
     with open('input_ex4.txt') as f:
@@ -28,6 +28,14 @@ def give_contexts(search_term, n):
 
 
     return contexts
-contexts = give_contexts('France', 10)
+
+# read out command line argument
+try:
+    context_size = int(sys.argv[1])
+except:
+    context_size = 10
+    print("No argument given, using default of {} as context size".format(context_size))
+
+contexts = give_contexts('France', context_size)
 print("Found {} matches:".format(len(contexts)))
 print("\n".join([" ".join(y) for (x,y) in contexts]))
