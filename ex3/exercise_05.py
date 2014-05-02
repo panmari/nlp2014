@@ -1,5 +1,7 @@
 
-import re, sys
+import re
+import sys
+
 
 def give_contexts(search_term, n):
     with open('input_ex4.txt') as f:
