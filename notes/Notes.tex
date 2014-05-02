@@ -168,4 +168,54 @@ Most efficient. Try everything, but don't try it more than once. Idea is to comb
 of top-down and bottom-up. Interprete everything as graph problem: Nodes are word boundaries,
 define arcs that are basically part sentences. Assemble tree that has no overlapping
 arcs.
+
+\section{Machine learning in NLP (text categorization, classification)}
+Most prominent example: filtering spam in emails. For standard classification problem
+(supervised learning), we usually have
+\begin{enumerate}
+	\item predefined categories $C$
+	\item a set of labeled documents $D$ (training set)
+\end{enumerate}
+Now the only thing left is to define a feature vector for a document. Many applications 
+in text filtering (for news), author identification (or just information about author),
+document indexing etc.
+
+Women use more pronouns (I), men use more nouns. 
+
+\subsection{Classifiers}
+\begin{itemize}
+	\item Rule based: Some experts produces rules to classify, just hardcode these. Usually
+	an expert can not provide such. Knowledge aquisition is bottleneck, may not be 
+	able to classify unseen examples.
+	\item TF-IDF
+	\item Rocchio method
+	\item Example based classifiers (k-nearest-neighbour KNN)
+\end{itemize}
+\subsection{Feature vectors}
+Can not extract semantic of document easily, but need to build a compact text representation anyway. Use a set of weighted term $t_k$. Terms can be found e.g. by bag
+of words/ tf-idf:
+\begin{equation}
+	w_{kj} = \frac{tf_{kj}\cdot idf_k}{\sqrt{\sum_i (tf_{ij}\cdot idf_i)^2}}
+\end{equation}
+with $t_k$ a term in document $d_j$. $t_{kj}$ is the frequency of the term $k$ in 
+document $j$. $idf_k = \log(n/df_k)$ is the log of the
+inverse of the frequency of the term $k$ in 
+all documents. 
+
+To improve results we can do stemming to reduce number of different terms (e.g. make
+computing and computer the same word). Or remove stop words. May only apply to part
+of document (e.g. abstract).
+
+This leads to huge vectors. We usually need
+to reduce dimensionality. 
+\paragraph{Term extraction:} Could apply term clustering, then use the centroid (is a synthetic term then).
+\paragraph{Term selection:} Only take terms
+that have highest $df_k$, e.g. remove
+all terms that occure less than k times
+in training documents. Alternatively use Mutual Information MI. Remove terms with MI between term and category closest to 0.
+This means, this term is a bad feature for describing this category.
+Could also use \emph{Information Gain} or \emph{Odds Ratio}. 
+A smoothing strategy could be useful here.
+
+To exclude values, you could use different methods to combine score for all categories. E.g. sum up the absolutes, take the max or weight absolute by probability of category and sum up.
 \end{document}
