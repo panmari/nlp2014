@@ -1,0 +1,27 @@
+\documentclass[11pt]{article}
+\usepackage{tikz}
+\usepackage{tikz-qtree}
+%Gummi|065|=)
+\title{\textbf{Answers Exercise 8 - Grammar parsing}}
+\author{Stefan Moser}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\section*{Exercise 3}
+How to generate L = \{ $a^n b^n | n > 0 $\} with a grammar. If we define our grammar as
+\begin{verbatim}
+	S -> A
+	A -> aAb | ab
+\end{verbatim}
+So if we want to create the most simple example 'ab', we would go
+\begin{verbatim}
+	S -> A -> ab
+\end{verbatim}
+and the more complex one with $n=5$ ('aaaaabbbbb') would be generated as
+\begin{verbatim}
+	S -> A -> aAb -> aaAbb -> aaaAbbb -> aaaaAbbbb -> aaaaabbbbb
+\end{verbatim}
+
+\end{document}
