@@ -13,10 +13,56 @@
 \subsection*{a) "Book that flight"}
 There is only one possible tree:
 
-\Tree [.S [.VP [.Verb Book ] [.NP [ [.det that ] [.Nom [.noun flight ] ] ] ] ] ]
+\Tree [.S [.VP [.verb Book ] [.NP [ [.det that ] [.Nom [.noun flight ] ] ] ] ] ]
 
+Not all failure states were tracked. 
+\begin{table}[h]
+\begin{tabular}{llll}
+	Step & list of nodes & rule  \\ \hline
+	1 & [S:] 			& S $\rightarrow$ NP VP \\
+	2 & [S:[NP VP]] 			& NP $\rightarrow$ NOM \\
+	3 & [S:[NP:NOM VP]] 			& NOM $\rightarrow$ noun \\
+	4 & [S:[NP:NOM:noun VP]] 			& noun $\rightarrow$ book \\
+	5 & [S:[NP:NOM:noun:book VP]] 			& noun $\rightarrow$ book \\
+	6 & [S:[NP:NOM:noun:book VP]] 			& VP $\rightarrow$ verb \\
+	7 & [S:[NP:NOM:noun:book VP:verb]] 			& fails \\
+	8 & [S:[NP:NOM:noun:book VP]] 			& VP $\rightarrow$ verb NP \\
+	9 & [S:[NP:NOM:noun:book VP:[verb NP]] 			& fails \\
+	10 & [S:VP] 			& S $\rightarrow$ VP   \\
+	11 & [S:VP:[verb NP] 			& verb $\rightarrow$ book   \\
+	12 & [S:VP:[verb:book NP] 			& NP $\rightarrow$ det NOM   \\
+	13 & [S:VP:[verb:book NP:[det NOM] 			&det $\rightarrow$ that    \\
+	14 & [S:VP:[verb:book NP:[det:that NOM] 			& NOM $\rightarrow$ noun   \\
+	15 & [S:VP:[verb:book NP:[det:that NOM:noun] 			& noun $\rightarrow$ flight   \\
+	16 & [S:VP:[verb:book NP:[det:that NOM:noun:flight] 			& noun $\rightarrow$ flight   \\
+\end{tabular}
+\end{table}
 \subsection*{b) "Does this flight include a meal?"}
-\Tree [.S [.Aux Does ] [.NP [ [.det that ] [.Nom [.noun flight ] ] ] ] [.VP [.Verb include ] 
+\Tree [.S [.Aux Does ] [.NP [ [.det that ] [.Nom [.noun flight ] ] ] ] [.VP [.verb include ] 
 [ .NP [ .det a ] [ .Nom [.noun meal ] ] ] ] ] 
 
+Not all failure states were tracked. 
+\begin{table}[h]
+\begin{tabular}{lp{10cm}l}
+	Step & list of nodes & rule  \\ \hline
+	1 & [S:] 			& S $\rightarrow$ Aux NP VP \\
+	2 & [S:[Aux NP VP]] 			& Aux $\rightarrow$ Does \\
+	3 & [S:[Aux:Does NP VP]]		& NP $\rightarrow$ det NOM \\
+	4 & [S:[Aux:Does NP:[det NOM] VP]]		& det $\rightarrow$ that \\
+	5 & [S:[Aux:Does NP:[det:that NOM] VP]]		& NOM $\rightarrow$ noun \\
+	6 & [S:[Aux:Does NP:[det:that NOM:noun] VP]]	& noun $\rightarrow$ flight \\
+	7 & [S:[Aux:Does NP:[det:that NOM:noun:flight] VP]] & VP $\rightarrow$ verb NP \\
+	8 & [S:[Aux:Does NP:[det:that NOM:noun:flight] VP:[verb NP]]& verb $\rightarrow$ include \\
+	9 & [S:[Aux:Does NP:[det:that NOM:noun:flight] 
+			VP:[verb:include NP]] & NP $\rightarrow$ det NOM   \\
+	10 & [S:[Aux:Does NP:[det:that NOM:noun:flight] 
+		 VP:[verb:include NP:[det NOM]]]& det $\rightarrow$ a   \\
+	11 & [S:[Aux:Does NP:[det:that NOM:noun:flight] 
+		 VP:[verb:include NP:[det:a NOM]]]& NOM $\rightarrow$ noun   \\
+	12 & [S:[Aux:Does NP:[det:that NOM:noun:flight] 
+		 VP:[verb:include NP:[det:a NOM:noun]]]& noun $\rightarrow$ meal  \\
+	13 & [S:[Aux:Does NP:[det:that NOM:noun:flight] 
+		 VP:[verb:include NP:[det:a NOM:noun:meal]]]   \\
+\end{tabular}
+\end{table}
 \end{document}
