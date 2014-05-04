@@ -1,0 +1,60 @@
+\documentclass[11pt]{article}
+\usepackage{tikz}
+\usepackage{tikz-qtree}
+%Gummi|065|=)
+\title{\textbf{Answers Exercise 8 - Grammar parsing}}
+\author{Stefan Moser}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\section*{Exercise 2 - Bottom Up}
+\subsection*{a) "Book that flight"}
+Not all failure states were tracked. 
+\begin{table}[h]
+\begin{tabular}{llll}
+	Step & list of nodes & subsequence & rule  \\ \hline
+	1 & Book that flight & book & noun $\rightarrow$ book \\
+	2 & noun that flight & noun & NOM $\rightarrow$ noun \\
+	3 & NOM that flight & that & det $\rightarrow$ that \\
+	4 & NOM det flight & NOM det & \textbf{fails}\\
+	5 & Book that flight & Book & verb $\rightarrow$ book\\
+	6 & verb that flight & that & det $\rightarrow$ that \\
+	7 & verb det flight & that & det $\rightarrow$ that \\
+	8 & verb det flight & flight & noun $\rightarrow$ flight \\
+	9 & verb det noun & noun & NOM $\rightarrow$ noun \\
+	10 & verb det NOM & det NOM & NP $\rightarrow$ det NOM \\
+	11 & verb NP & verb NP & VP $\rightarrow$ verb NP \\
+	12 & VP & VP & S $\rightarrow$ VP \\
+	12 & S & \\
+\end{tabular}
+\end{table}
+\Tree [.S [.VP [.Verb Book ] [.NP [ [.det that ] [.Nom [.noun flight ] ] ] ] ] ]
+
+\subsection*{b) "Does this flight include a meal?"}
+Not all failure states were tracked. The question mark was removed, since it can not be
+parsed by our grammar.
+\begin{table}[h]
+\begin{tabular}{llll}
+	Step & list of nodes & subsequence & rule  \\ \hline
+	1 & Does this flight include a meal & Does & Aux $\rightarrow$ Does \\
+	2 & Aux this flight include a meal & this & det $\rightarrow$ this \\
+	3 & Aux det flight include a meal & flight & noun $\rightarrow$ flight \\
+	4 & Aux det noun include a meal & noun & NOM $\rightarrow$ noun \\
+	5 & Aux det NOM include a meal & det NOM & NP $\rightarrow$ det NOM \\
+	6 & Aux NP include a meal & include & verb $\rightarrow$ include \\
+	7 & Aux NP verb a meal & a & det $\rightarrow$ a \\
+	8 & Aux NP verb det meal & meal & noun $\rightarrow$ meal \\
+	9 & Aux NP verb det noun & noun & NOM $\rightarrow$ noun \\
+	10 & Aux NP verb det NOM & det NOM & NP $\rightarrow$ det NOM \\
+	11 & Aux NP verb NP & verb & VP $\rightarrow$ verb \\
+	12 & Aux NP VP NP & Aux NP VP or VP NP & \textbf{fail}, back to 11 \\
+	13 & Aux NP verb NP & verb NP &  VP $\rightarrow$ verb NP \\
+	14 & Aux NP VP & Aux NP VP &  S $\rightarrow$ Aux NP VP \\
+\end{tabular}
+\end{table}
+\Tree [.S [.Aux Does ] [.NP [ [.det that ] [.Nom [.noun flight ] ] ] ] [.VP [.Verb include ] 
+[ .NP [ .det a ] [ .Nom [.noun meal ] ] ] ] ] 
+
+\end{document}
