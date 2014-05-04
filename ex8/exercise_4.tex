@@ -9,25 +9,31 @@
 
 \maketitle
 
-\section*{Exercise 1}
-\subsection*{a) "Book that flight"}
-There is only one possible tree:
-
-\Tree [.S [.VP [.Verb Book ] [.NP [ [.det that ] [.Nom [.noun flight ] ] ] ] ] ]
-
-\subsection*{b) "Does this flight include a meal?"}
-\Tree [.S [.Aux Does ] [.NP [ [.det that ] [.Nom [.noun flight ] ] ] ] [.VP [.Verb include ] 
-[ .NP [ .det a ] [ .Nom [.noun meal ] ] ] ] ] 
 
 \section*{Exercise 4}
+Notation is kind of similar as in pyparsing, when there is a + between two grammar parts,
+they are actually concatenated
 \begin{verbatim}
-	S -> Term | Factor | number | variable
-	Term -> S + S 
-	Factor -> S * S 
+	plusorminus -> plus | minus
+	integer -> plusorminus + number | number
+	variable -> plusorminus + variable_name | variable_name
+	
+	addop -> plus | minus
+	multop -> mult | div
+	atom -> integer | variable
+	
+	factor -> atom | atom + factor
+	term -> factor | factor + multop + factor
+	S -> term | term + addop + term
 \end{verbatim}
 Terminals
 \begin{verbatim}
-	number
-	variable
+	number -> 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+	plus -> +
+	minus -> -
+	mult -> *
+	div -> /
+	variable_name -> {any letter}
 \end{verbatim}
+This can be more or less directly translated into pyparsing code. 
 \end{document}
