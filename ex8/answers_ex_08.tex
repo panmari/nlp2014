@@ -11,11 +11,10 @@
 
 \section*{Exercise 1 - Top Down}
 \subsection*{a) "Book that flight"}
-There is only one possible tree:
+There is only one possible tree, not all failure states were tracked in the table below:
 
 \Tree [.S [.VP [.verb Book ] [.NP [ [.det that ] [.Nom [.noun flight ] ] ] ] ] ]
 
-Not all failure states were tracked. 
 \begin{table}[h]
 \begin{tabular}{llll}
 	Step & list of nodes & rule  \\ \hline
@@ -34,7 +33,7 @@ Not all failure states were tracked.
 	13 & [S:VP:[verb:book NP:[det NOM] 			&det $\rightarrow$ that    \\
 	14 & [S:VP:[verb:book NP:[det:that NOM] 			& NOM $\rightarrow$ noun   \\
 	15 & [S:VP:[verb:book NP:[det:that NOM:noun] 			& noun $\rightarrow$ flight   \\
-	16 & [S:VP:[verb:book NP:[det:that NOM:noun:flight] 			& noun $\rightarrow$ flight   \\
+	16 & [S:VP:[verb:book NP:[det:that NOM:noun:flight]  \\
 \end{tabular}
 \end{table}
 \subsection*{b) "Does this flight include a meal?"}

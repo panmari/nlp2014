@@ -3,7 +3,6 @@ import sys
 
 
 def parse_calculator_string(s):
-    # define grammar
     plusorminus = Literal('+') | Literal('-')
     number = Word("0123456789")
     # plus/minus is attached to number/variable, so we don't run into problems with multiplication and/or addition

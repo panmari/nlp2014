@@ -218,4 +218,62 @@ Could also use \emph{Information Gain} or \emph{Odds Ratio}.
 A smoothing strategy could be useful here.
 
 To exclude values, you could use different methods to combine score for all categories. E.g. sum up the absolutes, take the max or weight absolute by probability of category and sum up.
+
+\section{Continuation on Text categorization, 5. May 2014}
+\subsection{Decision Rule classifier}
+If no expert available, just put together everything with if/else labels. E.g. label 'wheat' -> 'farming'. Can also postprocess rules, e.g. filter out contradicting ones. 
+
+\subsection{TF-IDF }
+Make vector with TF-IDF of words, compute similarity of two vectors
+
+\subsection{Rocchio Method}
+wat? Somehow have weights $w_ij$, then take decision?
+
+\subsection{K-Nearest Neighbour}
+Find nearest neighbour of learning set, apply same label. Could also retrieve k-nearest
+neighbour and label with most common label. For taking nearest neighbour, could use cosine
+similarity of TF-IDF.
+
+\subsection{Evaluating classifier}
+\subsubsection{Precision, Recall}
+Precision is the number of true positive over the number of positives classified
+(e.g. true spam classified as spam over everything classified as spam (not very important).
+Recall is the number of true poisitives classified correctly over the all true positives.
+
+Can be combined as F value:
+\begin{equation}
+	F_{\beta i} = \frac{(\beta^2 + 1)\cdot prec_i \cdot recall_i}{\beta^2 \cdot prec_i \cdot recall_i}
+\end{equation}
+\paragraph{Multicategory precision/recall}
+Can compute precision/recall for every single category. Can either do micro-averaging:
+\begin{equation}
+	prec_{all} = \frac{TP_{all}}{TP_{all} + FP_{all}}
+\end{equation}
+But this might be tainted, if only one single class is very bad. Macro-averaging would simply be taking the average over all recalls (does not take into
+account, that one class might be much more prevalent than others). 
+
+\subsubsection{K-fold cross validation}
+Divide training set into k subsets, train on k-1 subsets, do validation with the one left out. Repeat k times with every subset used for validation once.
+\paragraph{Leave-one-out cross-validation}
+Only use 1 sample for validation, rest for training. Is the same as k-fold cross validation
+with k=n with n the number of training samples.
+
+\subsection{Example of opinion mining}
+Need to find out if comment is positive, negative or neutral. Needs to cope with mixed
+opinions, sarcasm etc. Usually, we define positive and negative words, count occurence. 
+Need to handle negative case, double negative, noisy language (spelling).
+
+\section{Example authorship attribution, }
+Learn on text of some $n$ authors, try to classify new text. 
+\paragraph{Closed-Set} Can only be one of the authors learnt
+\paragraph{Open-Set} Can be in set or new author
+\paragraph{Verification} Determine, if attributed author is correct
+\paragraph{Profiling} Determine some attributes of author (sex, age, education...)
+\paragraph{Collaborative} Were there multiple authors?
+
+\subsubsection{subsubsection name}
+\label{ssub:}
+
+% subsubsection  (end)
+
 \end{document}
