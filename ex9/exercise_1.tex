@@ -1,0 +1,54 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath}
+
+%Gummi|065|=)
+\title{\textbf{Answers Exercise 9 - Evaluating Classifications}}
+\author{Stefan Moser}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\section*{Exercise 1 - TF-idf}
+The second column is maximum term frequency over all terms.
+The inverse document frequency (idf) is defined as
+\begin{equation}
+	idf(t) = \log_k \frac{N}{  \max(\{\text{Number of documents containing term } t \}, 1) }
+\end{equation}
+with $t$ as the evaluated term and $N$ the number of documents in our corpus. The max is
+to prevent division by zero.
+\subsubsection*{a) Computing idf}
+In our case, we have $k=10$ as base of the logarithm.
+\begin{equation}
+	idf(T_1) = \log_{10} \frac{10000}{100} = \log_{10} 100 = 2
+\end{equation}
+\begin{equation}
+	idf(T_2) = \log_{10} \frac{10000}{200} = \log_{10} 200 \approx 2.301
+\end{equation}
+\begin{equation}
+	idf(T_3) = \log_{10} \frac{10000}{200} = \log_{10} 100 \approx 2.301
+\end{equation}
+\begin{equation}
+	idf(T_4) = \log_{10} \frac{10000}{100} = \log_{10} 100 = 2
+\end{equation}
+\subsection*{b) Computing tf-idf}
+\begin{equation}
+	tf-idf(T_1)
+\end{equation}
+\subsubsection*{c) Computing query}
+The query($T_3, T_4$) can be interpreted as document new document D4 with frequencies
+as described in Table \ref{D4}
+\begin{table}[h]
+\center
+\begin{tabular}{l|lll}
+	Document & T1 & T2 & T3\\ \hline
+	D4 & 1 & 1 & 0\\
+\end{tabular}
+\caption{Frequencies of the query}
+\label{D4}
+\end{table}
+We need now to compute the most similar document for D4 using the cosine similarity measure
+\begin{equation}
+	sim(A,B) = \frac{A \cdot B}{|A| \cdot |B|} = \frac{\sum_i A_i \cdot B_i}{\sqrt{\sum_i A_i^2} \cdot \sqrt{\sum_i B_i^2}} \; . 
+\end{equation}
+\end{document}

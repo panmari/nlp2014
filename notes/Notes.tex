@@ -219,6 +219,13 @@ A smoothing strategy could be useful here.
 
 To exclude values, you could use different methods to combine score for all categories. E.g. sum up the absolutes, take the max or weight absolute by probability of category and sum up.
 
+\subsection{Maria tips on computation/test questions}
+Compute MI for contingency table
+\begin{equation}
+	MI = \log \frac{p(t_k, c_i)}{p(t_k)\cdot p(c_i)} = \log \frac{a \cdot m}{(a + b) (a + c)}
+\end{equation}
+The shortcut to the right works on a contingency table in default format. 
+
 \section{Continuation on Text categorization, 5. May 2014}
 \subsection{Decision Rule classifier}
 If no expert available, just put together everything with if/else labels. E.g. label 'wheat' -> 'farming'. Can also postprocess rules, e.g. filter out contradicting ones. 
