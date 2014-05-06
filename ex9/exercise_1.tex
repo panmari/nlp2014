@@ -1,5 +1,6 @@
 \documentclass[11pt]{article}
 \usepackage{amsmath}
+\usepackage{slashbox}
 
 %Gummi|065|=)
 \title{\textbf{Answers Exercise 9 - Evaluating Classifications}}
@@ -23,18 +24,40 @@ In our case, we have $k=10$ as base of the logarithm.
 	idf(T_1) = \log_{10} \frac{10000}{100} = \log_{10} 100 = 2
 \end{equation}
 \begin{equation}
-	idf(T_2) = \log_{10} \frac{10000}{200} = \log_{10} 200 \approx 2.301
+	idf(T_2) = \log_{10} \frac{10000}{200} = \log_{10} 50 \approx 1.699
 \end{equation}
 \begin{equation}
-	idf(T_3) = \log_{10} \frac{10000}{200} = \log_{10} 100 \approx 2.301
+	idf(T_3) = \log_{10} \frac{10000}{200} = \log_{10} 50 \approx 1.699
 \end{equation}
 \begin{equation}
 	idf(T_4) = \log_{10} \frac{10000}{100} = \log_{10} 100 = 2
 \end{equation}
 \subsection*{b) Computing tf-idf}
+We can compute the $tfidf$ according to the formula
 \begin{equation}
-	tf-idf(T_1)
+		tfidf(T_i, D_j) = tf(T_i, D_j) \cdot idf(T_i) 
 \end{equation}
+Applied to the first term, we then get
+\begin{align}
+	tfidf(T_1, D_1) &= tf(T_1, D_1) \cdot idf(T_1) \\
+					&= 4 \cdot 2 \\
+					&= 8
+\end{align}
+For all values, we then get
+\begin{table}[h]
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+	\backslashbox{Documents}{Terms} & $T_1$ & $T_2$ & $T_3$ & $T_4$\\
+\hline
+	$D_1$ & $4 \cdot 2 = 8$ & $4 \cdot 1.699 = 6.796$  & $0 \cdot 1.699 = 0$ & $1 \cdot 2 = 2$\\
+\hline
+	$D_2$ & $4 \cdot 2 = 8$  & $2 \cdot 1.699 = 3.398$ & $10 \cdot 1.699 = 16.99 $ & $5 \cdot 2 = 10$\\
+\hline
+	$D_2$ & $4 \cdot 2 = 8$  & $2 \cdot 1.699 = 3.398$ & $2 \cdot 1.699 = 3.398$ & $30 \cdot 2 = 60$\\
+\hline
+\end{tabular}
+\caption{Table of tf-idf for every combination of term $T_i$ and document $D_j$}
+\end{table}
 \subsubsection*{c) Computing query}
 The query($T_3, T_4$) can be interpreted as document new document D4 with frequencies
 as described in Table \ref{D4}
