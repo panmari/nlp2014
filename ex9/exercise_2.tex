@@ -1,0 +1,79 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath}
+\usepackage{slashbox}
+\usepackage{hyperref}
+
+%Gummi|065|=)
+\title{\textbf{Answers Exercise 9 - Evaluating Classifications}}
+\author{Stefan Moser}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\section*{Exercise 2 - Contingency Table}
+\begin{table} [h]
+\center
+\begin{tabular}{c|lll}
+	\backslashbox{Term}{Category} & $c_i$ & $c_{-i}$ \\
+\hline
+	$t_k$ 		& 50 & 80 & 130\\
+	$t_{-k}$ 	& 900 & 970 & 2870\\
+	 			& 950 & 1050 & 2000\\
+\end{tabular}
+\caption{Contingency table for this exercise.}
+\label{ct}
+\end{table}
+\subsection*{a) Mutual Information (MI)}
+With mutual information (MI) defined as
+\begin{equation}
+	MI(t_k, c_i) = \log \left( \frac{p(t_k, c_i)}{p(t_k)\cdot p(c_i)} \right)
+\end{equation}
+According to the article on \url{http://en.wikipedia.org/wiki/Mutual_information}, a good choice
+for the base of the logarithm is 2, making the unit of the mutual information \emph{bit}. For this
+report I used this base for computing MI. By using the numbers from the contigency table we get to the result
+\begin{equation}
+	MI(t_k, c_i) = \log \left( \frac{\frac{50}{2000}}{\frac{130}{2000} \cdot \frac{950}{2000}} \right) 
+				= \log \left( \frac{50 \cdot 2000}{130 \cdot 950} \right)
+				\approx -0.3045 \; .
+\end{equation}
+
+\subsection*{b) Odds Ratio (OR)}
+With odds ratio (OR) defined as (adapted to the notation of the exercise sheet)
+\begin{equation}
+	OR(t_k, c_i) = \frac{p(t_k | c_i)}{1 - p(t_k | c_i)} \cdot 
+					\frac{1 - p(t_k | c_{-i})}{p(t_k | c_{-i})}
+\end{equation}
+we again plug in the numbers given from contingency table
+\begin{equation}
+	OR(t_k, c_i) = \frac{50/950}{1 - 50/950} \cdot 
+					\frac{1 - 80/1050}{80/1050} \approx 0.674 \;
+\end{equation}
+
+\subsection*{c) Chi-Squared value}
+With Chi-Squared value ($\chi^2$) defined as
+\begin{equation}
+	\chi^2(t_k, c_i) = \frac{|T_r| \cdot \big( p(t_k, c_i) \cdot p(t_{-k}, c_{-i}) -
+						 p(t_{k}, c_{-i}) \cdot p(t_{-k}, c_{i}) \big)^2}
+						 {p(t_k) \cdot p(t_{-k}) \cdot p(c_{i}) \cdot p(c_{-i})}
+\end{equation}
+we again plug in the numbers given from contingency table
+\begin{equation}
+	\chi^2(t_k, c_i) = \frac{2000 \cdot (50 \cdot 970 - 80 \cdot 900)^2}
+					{130 \cdot 1870 \cdot 950 \cdot 1050} 
+					\approx 4.55
+\end{equation}
+\subsection*{d) Information Gain (IG)}
+With Information Gain (IG) defined as
+\begin{equation}
+	\chi^2(t_k, c_i) = \frac{|T_r| \cdot \big( p(t_k, c_i) \cdot p(t_{-k}, c_{-i}) -
+						 p(t_{k}, c_{-i}) \cdot p(t_{-k}, c_{i}) \big)^2}
+						 {p(t_k) \cdot p(t_{-k}) \cdot p(c_{i}) \cdot p(c_{-i})}
+\end{equation}
+we again plug in the numbers given from contingency table
+\begin{equation}
+	\chi^2(t_k, c_i) = \frac{2000 \cdot (50 \cdot 970 - 80 \cdot 900)^2}
+					{130 \cdot 1870 \cdot 950 \cdot 1050} 
+					\approx 4.55
+\end{equation}
+\end{document}
