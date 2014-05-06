@@ -66,14 +66,17 @@ we again plug in the numbers given from contingency table
 \subsection*{d) Information Gain (IG)}
 With Information Gain (IG) defined as
 \begin{equation}
-	\chi^2(t_k, c_i) = \frac{|T_r| \cdot \big( p(t_k, c_i) \cdot p(t_{-k}, c_{-i}) -
-						 p(t_{k}, c_{-i}) \cdot p(t_{-k}, c_{i}) \big)^2}
-						 {p(t_k) \cdot p(t_{-k}) \cdot p(c_{i}) \cdot p(c_{-i})}
+	IG(t_k, c_i) = \sum_{c \in \{c_i, c_{-i}\}}  \sum_{t \in \{t_k, t_{-k}\}} p(t,c) 
+				 \cdot \log \left( \frac{p(t,c)}{p(t) \cdot p(c)} \right)
 \end{equation}
 we again plug in the numbers given from contingency table
-\begin{equation}
-	\chi^2(t_k, c_i) = \frac{2000 \cdot (50 \cdot 970 - 80 \cdot 900)^2}
-					{130 \cdot 1870 \cdot 950 \cdot 1050} 
-					\approx 4.55
-\end{equation}
+\begin{align*}
+	IG(t_k, c_i) &= \frac{50}{2000} \log_2 \left( \frac{50 \cdot 2000}{130 \cdot 950} \right) \\
+				 &+ \frac{900}{2000} \log_2 \left( \frac{900 \cdot 2000}{1870 \cdot 950} \right) \\
+				 &+ \frac{80}{2000} \log_2 \left( \frac{80 \cdot 2000}{130 \cdot 1050} \right) \\
+				 &+ \frac{970}{2000} \log_2 \left( \frac{970 \cdot 2000}{1870 \cdot 1050} \right) \\
+				 &\approx 0.001151
+\end{align*}
+As in exercise a), the logarithm to the base 2 was used.
+TODO: actually use log to base 2
 \end{document}
