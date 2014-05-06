@@ -66,9 +66,9 @@ as described in Table \ref{D4}
 \hline
 	Document & $T_1$ & $T_2$ & $T_3$ & $T_4$ \\ 
 \hline
-	$D_4$ & 1 & 1 & 0 & 0 \\ 
+	$D_4$ & 0 & 0 & 1 & 1 \\ 
 \hline
-	$tfidf(D_4)$ & $1 \cdot 2 = 2$ & $1 \cdot 1.699 = 1.699$ & 0 & 0 \\ 
+	$tfidf(D_4)$ & 0 & 0 & $1 \cdot 1.699 = 1.699$ & $1 \cdot 2 = 2$  \\ 
 \hline
 \end{tabular}
 \caption{Frequencies of the query interpreted as document $D_4$ and 
@@ -80,15 +80,15 @@ We need now to compute the most similar document for D4 using the cosine similar
 	sim(A,B) = \frac{A \cdot B}{|A| \cdot |B|} = \frac{\sum_i A_i \cdot B_i}{\sqrt{\sum_i A_i^2} \cdot \sqrt{\sum_i B_i^2}} \; . 
 \end{equation}
 \begin{align*}
-	sim(D_4, D_1) &= \frac{2 \cdot 8 + 1.699 \cdot 6.796} 
-					{\sqrt{2^2 + 1.699^2} \cdot \sqrt{8^2 + 6.796^2 + 0^2 + 2^2}} \approx 0.9823 \\
-	sim(D_4, D_2) &= \frac{2 \cdot 8 + 1.699 \cdot 3.398}
-					{\sqrt{2^2 + 1.699^2} \cdot \sqrt{8^2 + 3.398^2 + 16.99^2 + 10^2}} \approx 0.3851 \\
-	sim(D_4, D_3) &= \frac{2 \cdot 8 + 1.699 \cdot 6.796}
-					{\sqrt{2^2 + 1.699^2} \cdot \sqrt{8^2 + 3.398^2 + 3.398^2 + 60^2}} \approx 0.1729
+	sim(D_4, D_1) &= \frac{1.699 \cdot 0 + 2 \cdot 2} 
+					{\sqrt{2^2 + 1.699^2} \cdot \sqrt{8^2 + 6.796^2 + 0^2 + 2^2}} \approx 0.1426 \\
+	sim(D_4, D_2) &= \frac{1.699 \cdot 16.99 + 2 \cdot 10}
+					{\sqrt{2^2 + 1.699^2} \cdot \sqrt{8^2 + 3.398^2 + 16.99^2 + 10^2}} \approx 0.8643 \\
+	sim(D_4, D_3) &= \frac{1.699 \cdot 3.398 + 2 \cdot 60}
+					{\sqrt{2^2 + 1.699^2} \cdot \sqrt{8^2 + 3.398^2 + 3.398^2 + 60^2}} \approx 0.7893
 \end{align*}
 This leads to the following order in similarity (from most similar to least similar)
 \begin{equation}
-	D_1 > D_2 > D_3
+	D_2 > D_3 > D_1
 \end{equation}
 \end{document}
