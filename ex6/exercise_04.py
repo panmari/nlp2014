@@ -69,9 +69,12 @@ def spellcheck(word):
     correction_distances = dict(zip(possible_soundex_corrections, [d.compute(x, word) for x in possible_soundex_corrections]))
     # sort dictionary by distances (converts to tuple for this purpose)
     sorted_corrections = sorted(correction_distances.items(), key=lambda x: x[1])
-    print('Found the following possible correct spellings, ordered by distance:')
-    for tuple in sorted_corrections:
-        print(tuple)
+    if sorted_corrections[0][1] == 0:
+        print('Found word in dictionary.')
+    else:
+        print('Found the following possible correct spellings, ordered by distance:')
+        for tuple in sorted_corrections:
+            print(tuple)
 
 
 import sys
@@ -85,7 +88,7 @@ if __name__ == '__main__':
         # deyn -> misspelling for deny (does work)
         # cas -> misspelling for case (does work)
         # gail -> misspelling for jail (does not work, since soundex gives too much weight to first character)
-        for testword in ['gian', 'rack', 'deyn', 'cas', 'gail']:
+        for testword in ['gian', 'rack', 'deyn', 'cas', 'gail', 'four']:
             print("Doing spellcheck for {}...".format(testword))
             spellcheck(testword)
             print("\n")

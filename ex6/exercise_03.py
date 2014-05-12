@@ -2,14 +2,13 @@
 from exercise_01 import get_four_letter_words
 import string
 import sys
-
 def spellcheck(word):
     flw = get_four_letter_words()
     possible_correct_spellings = set()
     # case one: one letter in the word was missing
-    for i in range(len(word)):
+    for i in range(-1, len(word) + 1):
         for char in string.ascii_letters:
-            word_changed = word[:i] + char + word[i+1:]
+            word_changed = word[:i+1] + char + word[i+1:]
             if word_changed in flw:
                 possible_correct_spellings.add(word_changed)
 
