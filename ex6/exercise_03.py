@@ -16,9 +16,8 @@ def spellcheck(word):
     for i in range(len(word)):
         for j in range(i + 1, len(word)):
             word_changed = list(word)
-            tmp = word_changed[i]
-            word_changed[i] = word_changed[j]
-            word_changed[j] = tmp
+            word_changed[i] = word[j]
+            word_changed[j] = word[i]
             word_changed = ''.join(word_changed)
             if word_changed in flw:
                 possible_correct_spellings.add(word_changed)

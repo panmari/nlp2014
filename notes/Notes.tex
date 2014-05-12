@@ -277,10 +277,46 @@ Learn on text of some $n$ authors, try to classify new text.
 \paragraph{Verification} Determine, if attributed author is correct
 \paragraph{Profiling} Determine some attributes of author (sex, age, education...)
 \paragraph{Collaborative} Were there multiple authors?
+Use style of \textbf{author}, which depends on social group, gender, age, education, \textbf{period in
+time}, topic, etc...
+\subsection{Single measurement}
+Count frequency of letters (or words) to describe author. Surprisingly, this somehow works!
+Also possible use vocabular richness, measured e.g. as 
+\paragraph{Guiraud}
+\begin{equation}
+	R = \frac{V}{sqrt(N)}
+\end{equation}
+\paragraph{Simpson's index}
+\begin{equation}
+	D = \frac{\sum r(r-1) V_r}{N(N-1)}
+\end{equation}
+with $V_r$ as number of types that occur $r$ times, $N$ the number of tokens.
+\subsection{Stylistic approaches}
+Single measurement not enough, to something more sophisticated. Take more evidence into
+account. 
+\subsubsection{Burrows' Delta}
+Take $n$ most frequent words, do Z-Index with them etc.
+\subsubsection{Kullback-Leibler Divergence}
+Define set of frequent words for the text's language, e.g. use stopword list. 
+Define its probability in quert text
+ $q$ and for authors texts $a_i$. Take distance via
+\begin{equation}
+	KLD(Q|| A_j) = \sum_i q(t_i) \cdot log_2 \left( \frac{q(t_i}{a_j(t_i)} \right)
+\end{equation}
+Low KLD indicated probable author. To prevent invalid log/division, make some special cases.
+Is not normalized, so may have values larger than 1. Can be combined with smoothing.
+\subsubsection{Z-Score}
+As before, Obama vs Caine, take summed squared difference in z-score between author and 
+normal language. Can make vector of some most frequent terms, compare with other authors.
 
-\subsubsection{subsubsection name}
-\label{ssub:}
+\section{Cryptography, 12. May. 2014}
+\subsection{Steganography}
+Add watermark to image. Can be used to transmit hidden message. Does have the drawback, that
+as soon the algorithm is known, everyone can read the message. Only weak security!
+\subsection{Substitution Cypher}
+Reorder letters according to some pattern. E.g. Caesar, shift everything by 3 letters. 
+Many possible ways to generate substitution patterns, but can be evaluated statistically.
+So everything is terrybad.
 
-% subsubsection  (end)
 
 \end{document}
