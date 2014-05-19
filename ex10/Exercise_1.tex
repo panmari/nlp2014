@@ -10,6 +10,7 @@
 \maketitle
 
 \section*{Exercise 1 - Authorship attribution}
+\setcounter{section}{1}
 \subsection{Burrows Delta}
 For computing burrows delta, we need the 
 frequencies of the $n$ most common words in a default text in the same language. I will
@@ -61,14 +62,14 @@ the mean and standard deviation over all
 authors for each term.}
 \label{table:rel_freq}
 \end{table}
-Next, we compute for every term and every author the z $z_{ij}$ score using the formula
+Next, we compute for every term and every author the $z_{ij}$ score using the formula
 \begin{equation}
 	z_{ij} = \frac{r_{ij} - \mu_i}{\sigma_i}
 \end{equation}
-with $r$ as the relat frequency. 
+with $r$ as the relative frequency. 
 
 For computing the distance, we just take the
-absolute difference between two z scores. These results are visible in Table \ref{table:zscores}
+absolute difference between two z scores. The results of this computation are visible in Table \ref{table:abs_diff}
 \begin{table}[h]
 \center
 \begin{tabular}{|l|l|l|l|l|l|}
@@ -86,46 +87,47 @@ T4 & 0.257355759306 & -1.33297269815 & 1.07561693885 & - 1.023\\
 T5 & -1.38403154146 & 0.440336373112 & 0.943695168347 & -0.283 \\
 \hline
 \end{tabular}
-\caption{TODO: ZSCORES}
+\caption{$z_{ij}$ for every author and term, including the query text. }
 \label{table:zscores}
 \end{table}
 and sum over all terms $i$
 \begin{equation}
 	\Delta(A_j, Q) = \frac{1}{n} \sum_i | z_{ij} - z_{iQ} |
 \end{equation}
-Summing up the rows of Table \ref{table:zscores}, we end up with the following values for all authors available:
+Summing up the rows of Table \ref{table:zscores} and dividing by the number
+of terms, we end up with the following values for all authors available:
 \begin{align*}
-	 \Delta(A1, Q_1) &= 7.58840157 \\
-	 \Delta(A2, Q_1) &=   5.75102657 \\
-	 \Delta(A3, Q_1) &=   11.96784346
+	 \Delta(A1, Q_1) &= 1.51768031 \\
+	 \Delta(A2, Q_1) &= 1.15020531 \\
+	 \Delta(A3, Q_1) &= 2.39356869
 \end{align*}
 So we conclude that A2 is the most probable author in this set of authors.
 
 For the values of exercise b), we do exactly the same computation and end up with the values
 \begin{align*}
-	 \Delta(A1, Q_1) &= 11.90163675, \\
-	 \Delta(A2, Q_1) &=   5.52183744, \\
-	 \Delta(A3, Q_1) &=   11.07198433
+	 \Delta(A1, Q_2) &= 2.38032735 \\
+	 \Delta(A2, Q_2) &= 1.10436749 \\
+	 \Delta(A3, Q_2) &= 2.21439687
 \end{align*}
 and conclude again that A2 as the most probably author.
 \begin{table}
 \center
 \begin{tabular}{|l|l|l|l|l|l|}
 \hline
-	 & A1 & A2 & A3 & Q \\
+	 & A1 & A2 & A3 \\
 	 \hline
-T1 & 0.895796011645 & 0.499816154218 & -1.39561216586 & 4.203 \\
+T0 & 3.30706320105 & 3.70304305848 & 5.59847137856 \\
  \hline 
-T2 & -0.765560074165 & 1.41255590087 & -0.646995826702 & 0.654\\
+T1 & 1.41924001759 & 0.758875957443 & 1.30067577013 \\
+ \hline 	
+T2 & 0.480993633061 & 0.255515900352 & 1.7440590935 \\
  \hline 
-T3 & 0.816843486425 & 0.591365753716 & -1.40820924014 & 0.336\\
+T3 & 1.27987702518 & 0.310451432275 & 2.09813820472 \\
  \hline 
-T4 & 0.257355759306 & -1.33297269815 & 1.07561693885 & - 1.023\\
- \hline 
-T5 & -1.38403154146 & 0.440336373112 & 0.943695168347 & -0.283 \\
-\hline
+T4 & 1.10122769178 & 0.723140222786 & 1.22649901802 \\
+ \hline
 \end{tabular}
 \caption{Absolute difference to query term.}
-\label{table:rel_freq}
+\label{table:abs_diff}
 \end{table}
 \end{document}
