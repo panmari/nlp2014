@@ -234,7 +234,10 @@ If no expert available, just put together everything with if/else labels. E.g. l
 Make vector with TF-IDF of words, compute similarity of two vectors
 
 \subsection{Rocchio Method}
-wat? Somehow have weights $w_ij$, then take decision?
+Similar as tf-idf, must different weights? Take weights for all texts and divide by number
+of texts in this category, then subtract sum of weights of all negative documents and divide
+by number of negative documents. Gives more weight to more important terms. Formula will be
+given if there is any question related.
 
 \subsection{K-Nearest Neighbour}
 Find nearest neighbour of learning set, apply same label. Could also retrieve k-nearest
@@ -315,8 +318,79 @@ Add watermark to image. Can be used to transmit hidden message. Does have the dr
 as soon the algorithm is known, everyone can read the message. Only weak security!
 \subsection{Substitution Cypher}
 Reorder letters according to some pattern. E.g. Caesar, shift everything by 3 letters. 
-Many possible ways to generate substitution patterns, but can be evaluated statistically.
-So everything is terrybad.
+Many possible ways to generate substitution patterns, key space is very big. Exhaustive 
+search there can not yield good results. But can be evaluated statistically (cryptanalysis).
 
+\subsection{Cryptanalysis}
+Take frequencies of default test, apply to frequencies of cypher text. Then we have probable
+mapping to decypher texts.
 
+\subsection{Homophonic substitution}
+Instead of substituting one letter with one letter, we could replace a character by multiple
+characters and a one-to-many mapping. Makes statistical analysis much harder.
+\subsection{Polyalphabetic substitution}
+E.g. Vigenère cypher, repeat key until it matches lenght of plain text, add up plain text
+character and key text character (modulo 26) equals cypher text. This way, some letter B
+may once be encrypted as C and another time as D etc.
+
+\subsubsection{Cryptanalysis (Kasiski method)}
+Problem here is, that repetition in plain text might be visible in cypher text. From this
+the key size can be deferred. Works for short key sentences that repeat a lot. For longer
+sentences, it is possible to place common words in key, look at the decrypted message and do
+som validation where it seems correct.
+\subsection{Enigma}
+Still monoalphabetic substitution, but with multirotor substitution scheme. Need to set initial
+rotor setting, then automatically moving forward. 
+
+\subsection{One time pad for perfect secrecy}
+Use key only once, do XOR on byte level. Difficult to apply in practice, since hard to exchange
+key. 
+\subsection{Block cypher}
+Fixed size of 128-bit, input is 128 bit, output is 128 bit. Lenght of plain text can not be
+deferred from cypher text anymore. E.g. used by DES.
+
+\section{Summary - possible questions, 18. May 2014 }
+\subsection{Introduction}
+\subsubsection{Why is NLP difficult? What are the differences between parsing artificial language (Java) and 
+a real one?}
+\begin{itemize}
+	\item Vocabulary not completely known, not all meanings of a single word are known (everything is 
+changing/shifting). Infinite number of possible sentences.
+	\item Needs high tolerance for errors.
+	\item Implicit elements, meaning deferred from last sentence etc. Mr, Prime minister e.g. 
+	can be same person. Idiomatics meaning are possible. 
+	\item Ambiguity! Many ways to parse single sentence.
+\end{itemize}
+Can be somewhat handled with regex. 
+\subsubsection{ML vs HTML}
+elements vs entities, XML more strict. Turn DTD (visualization with rectangles) 
+into xml and vice versa.
+\subsection{Spelling detection and Correction}
+Type of errors: transposition (swap two letters), remove one letter, replace one letter, add extra letter. Error can be measured with dynamic programming (levenshtein distance). Do that
+with matrix for example. 
+
+soundex (make classes of letters with similar sound, tries to detect phoenetic
+errors)
+
+\subsection{Language model}
+Zipfs model, make rank of frequencies, turns out it's logarithmic. 
+Mutual information (not needed to learn by heart). Can compute classical example of 4x4 table
+(IT, not IT, Obama, not Obama).
+What is language model? Statistical model of language, use bigrams/trigrams. 
+
+\subsection{Parsing sentences}
+Goal, full vs shallow, bottom up (start from left, assemble until only one node) vs top down (start with full sentence, chop it apart) vs chat parsing. 
+
+\subsection{Text classification}
+Representation of text (stems), use nearest neighbor or so. Evaluate quality of system: precision and recall). 
+
+\subsection{Authorship attribution}
+Select features (e.g. words, most common words...) and compute some distance. Kullback leibler 
+distance, what is meaning of zero (Same distribution in $Q$ and $A_j$), what is meaning of infinity? Negative is not possible. Certainly either MI or Kullback Leibler will be in test!
+
+\subsubsection{Naive Bayes}
+How much is word associated to auther? Can be computed here. wat?
+
+\subsection{Memorize}
+Need to know how to compute Zipfs law, MI. Markov chain: Coffee-coffe, how probable is that?
 \end{document}
