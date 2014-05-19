@@ -1,9 +1,6 @@
 import numpy as np
+from helpers import latexify_matrix
 
-def latexify_matrix(m):
-	s = " \\\\\n \\hline \n".join(["T{} & ".format(idx) + " & ".join(map(str,line)) for idx, line in enumerate(m)])
-	s += " \\\\\n \\hline \n"
-	return s
 #exercise b)
 freq_string = """2 36 100;
 		 78 45 5;

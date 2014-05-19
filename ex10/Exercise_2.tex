@@ -34,4 +34,47 @@ as for the previous exercise (See Table \ref{table:count}).
 \caption{The count of terms in texts of different authors plus the query text.}
 \label{table:count}
 \end{table}
+The KLD can be computed as
+\begin{equation}
+	KLB(Q || A_j) = \sum_i q(T_i) \cdot \log \left( \frac{q(T_i)}{a_j(T_i)} \right)
+\end{equation}
+with $q(T_i)$ as the probability of the term in the query and $a_j(T_i)$ the probability of 
+the term for the $j$'th author. This has already been computed for exercise 2 and is repeated
+in Table \ref{table:rel_freq}.
+For my computations I used the logarithm to the base 2 and got these results:
+\begin{align*}
+	KLB(Q|| A_1) &= 0.42303893 \\
+	KLB(Q|| A_2) &= 0.22689918 \\
+	KLB(Q|| A_3) &= 0.99905016 \\
+\end{align*}
+And once again I conclude that A2 is the most probably author.
+
+For the values of exercise b) we again do the exact same computation and end up with
+\begin{align*}
+	KLB(Q'|| A'_1) &= 1.88925238 \\
+	KLB(Q'|| A'_2) &= 0.59402692 \\
+	KLB(Q'|| A'_3) &= 2.17877425 \\
+\end{align*}
+Also here we can assume that A2 was the author of the querried document.
+\begin{table}[h]
+\center
+\begin{tabular}{|l|l|l|l|l|l||l|}
+\hline
+	 & A1 & A2 & A3 & mean & std & Q\\
+\hline
+	T1 & 0.085 & 0.075 & 0.021 & 0.061 & 0.028 & 0.179\\
+\hline
+	T2 & 0.155 & 0.356 & 0.165 & 0.225 & 0.092 & 0.286 \\
+\hline
+	T3 & 0.386 & 0.356 & 0.086 & 0.276 & 0.135 & 0.321 \\
+\hline
+	T4 & 0.321 & 0.011 & 0.482 & 0.272 & 0.196 & 0.071 \\
+\hline
+	T5 & 0.515 & 0.203 & 0.245 & 0.166 & 0.083 & 0.143 \\
+\hline
+\end{tabular}
+\caption{The relative frequency (i.e. the probabilities) of each term
+for each author.}
+\label{table:rel_freq}
+\end{table}
 \end{document}
