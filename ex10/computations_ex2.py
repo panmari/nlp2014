@@ -24,7 +24,7 @@ mt = (freq + 1) / freq.sum(axis=0)
 
 query = query.transpose()
 query_rf = (query + 1) / query.sum()
-kld_matrix = np.zeros([5, 3])
+kld_matrix = np.zeros(mt.shape())
 for row in range(5):
     for column in range(3):
         kld_matrix[row,column] = (query_rf[row] * np.log2(query_rf[row] / mt[row, column]))
