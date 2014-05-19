@@ -47,4 +47,4 @@ abs_diff = abs(zscore - query_zscore)
 print('absolute diff:')
 print(latexify_matrix(abs_diff))	
 
-diff_author = abs_diff.sum(axis=0)
+diff_author = abs_diff.sum(axis=0)/abs_diff.shape[0]
