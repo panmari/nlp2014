@@ -1,5 +1,7 @@
 import re
 from math import log2
+
+#parse the input texts into a dictionary
 with open('input_2.txt') as f:
     documents = {}
     doc_nr = None
@@ -14,6 +16,7 @@ with open('input_2.txt') as f:
         if re.match('</SOURCE>', line):
             parsing = True
 
+# this has to be a set for fast in queries.
 most_frequent_words = set()
 with open('frequent100.txt') as f:
     for line in f:
