@@ -1,0 +1,64 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath}
+
+%Gummi|065|=)
+\title{\textbf{Answers Exercise 9 - Evaluating Classifications}}
+\author{Stefan Moser}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\section*{Exercise 1 - Authorship attribution}
+\subsection{Burrows Delta}
+For computing burrows delta, we need the 
+frequencies of the $n$ most common words in a default text in the same language. I will
+assume that T1 to T5 fulfill this criteria. Next we need to compute the relative frequencies of each term for each author.
+Then we take the mean and standard deviation of the relative frequencies over
+all available authors (Table \ref{table:rel_freq}).
+\begin{table}
+ \center
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+	 & A1 & A2 & A3 & Q\\
+\hline
+	T1 & 20 & 21 & 3 & 25\\
+\hline
+	T2 & 36 & 100 & 23 & 40\\
+\hline
+	T3 & 90 & 100 & 12 & 45\\
+\hline
+	T4 & 75 & 3 & 67 & 10\\
+\hline
+	T5 & 12 & 57 & 34 & 20\\
+\hline
+	size & 233 & 281 & 139 & 140\\
+\hline
+\end{tabular}
+\caption{The count of terms in texts of different authors plus the query text.}
+\label{table:count}
+\end{table}
+\begin{table}
+\center
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+	 & A1 & A2 & A3 & mean & std\\
+\hline
+	T1 & 0.085 & 0.075 & 0.021 & 25\\
+\hline
+	T2 & 0.155 & 0.356 & 0.165 & 40\\
+\hline
+	T3 & 0.386 & 0.356 & 0.086 & 45\\
+\hline
+	T4 & 0.321 & 0.011 & 0.482 & 10\\
+\hline
+	T5 & 0.515 & 0.203 & 0.245 & 20\\
+\hline
+\end{tabular}
+\caption{The relative frequency of each term
+for each author. Additionaly we computed
+the mean and standard deviation over all
+authors for each term.}
+\label{table:rel_freq}
+\end{table}
+\end{document}
