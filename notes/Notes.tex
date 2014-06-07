@@ -7,11 +7,87 @@
 \usepackage{hyperref}
 \usepackage{amssymb}
 \author{Stefan Moser}
-\date{}
+\date{\today}
 \begin{document}
 
 \maketitle
+\section{Introduction}
+Most information only present in natural language, not tables/machine readable form. 
 
+\section{XML}
+Instead of only text, want to share more information (structure!). 
+XML = \emph{eXtensible Markup Language}, similar
+to HTML, but tags are not predefined. HTML is used to display information, XML is about describing
+information. First line is XML declaration (encoding, version). Node may have attributes (value of attribute
+is in quotes). 
+\subsection{Valid XML (that are not needed in HTML)}
+\begin{enumerate}
+	\item XML is case sensitive
+	\item XML needs proper nesting
+	\item XML needs closing tags for everything
+	\item XML needs a root
+	\item has strict naming rules
+\end{enumerate}
+Elements should be prefered compared to attributes, except for identifier references. Special characters
+(eg pointy brackets) need to be escaped in entities.
+
+Can express logical structure of XML in tree/box form. 
+There are various corpus online availble in XML format, eg TEI sample spoken text
+\subsection{DTD - Document type definition}
+Defines legal building blocks of XML document, kind of a schematic for producing valid XMLs.
+
+\section{Language model}
+For a given vocabulary, could build infinitely many sentences. Could assume probability of every word
+independent of everything else $\rightarrow$ low probability for long sentences (no matter if it makes
+sense or not). Language model tries to statistically estimate probability of a word sequence.
+\subsection{Counting words}
+First part we have to solve. Same word may have different shapes (microsoft, micro\$oft) or
+not the same meaning (Mr. Brown, brown fox). Also dates abbrevations make problems or words 
+separated by hyphen. 
+
+\subsection{Sentence Segmentation}
+Need to find way to segment sentences (different possible regex). Period is easiest, but only 93\% correct. 
+Need to also filter fractions/percents and abbrevations to have better results. Additionally direct speech.
+
+\subsection{N-gram Model}
+Define \emph{types} as distinct words in a text, \emph{tokens} as all words/symbols in text. 
+Words have usually specific context they're used in, can be expressed with probability of n-gram.
+Use bigram as approximation for
+\begin{equation}
+	p(w_i | w_1, w_2, w_3, \ldots w_{i-1}) = p(w_i | w_{i-1}) = \frac{C(w_{i-1}, w_i)}{C(w_{i-1})}
+\end{equation}
+or more $w_{i-n}$ for n-grams. Above is maximum likelihood method for estimation.
+
+\subsection{Smoothing techniques}
+Problem with sparse data, many things may have 0 occurences $\rightarrow$ probability zero (not realistic). 
+Various smoothing techniques to improve behaviour
+\paragraph{Laplace smoothing}
+Add one to every occurence. Things not occuring have occurence 1 then. Needs also
+be done for normalization (frequency, divide by number tokens + types).
+Very simple technique, but too much shifted towards unseen n-grams, all smoothed the same way. 
+Could be improved by adding $\lambda = 0.01$ instead of 1. Can test different $\lambda$ with cross
+validation.
+
+\paragraph{Good-Turing Smoothing}
+Frequency of n-gram is set to
+\begin{equation}
+	c* = (c + 1) \cdot \frac{N_{c+1}}{N_c}
+\end{equation}
+with $N_i$ as the number of tokens we have seen $i$ times and $c$ as frequency of occurence. 
+Could e.g. do this only for $c < 10$ bc only reliable for high $N_c$. Probability is then estimated as
+\begin{equation}
+	 p(w_i | w_{i-1}) = \frac{c^*(w_{i-1}, w_i)}{C(w_{i-1})}
+\end{equation}
+\paragraph{Linear interpolation}
+Linear interpolate between tri, bi and unigram. Weights should sum up to 1, be between 0 and 1.
+Weights are chosen according to context (e.g. if lots of data or not many singletons, trigram better). 
+\paragraph{Dirichlet Smoothing}
+Given model $B$ that gives us probability for word $w_i$, we can estimate p with
+\begin{equation}
+	p(w_i|B) = \frac{C(w_i)}{N + \mu} + \frac{\mu}{N + \mu}\cdot p_B(w_i)
+\end{equation}
+First part is direct estimation of probability, second part is under model $B$. Parameter $\mu$ gives
+importance of background model.
 \section{Spell checking, 24. March 2014}
 
 \subsection{Damereau-Levenstein metric}
@@ -362,7 +438,7 @@ changing/shifting). Infinite number of possible sentences.
 	\item Ambiguity! Many ways to parse single sentence.
 \end{itemize}
 Can be somewhat handled with regex. 
-\subsubsection{ML vs HTML}
+\subsubsection{XML vs HTML}
 elements vs entities, XML more strict. Turn DTD (visualization with rectangles) 
 into xml and vice versa.
 \subsection{Spelling detection and Correction}
