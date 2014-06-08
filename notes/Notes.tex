@@ -88,6 +88,16 @@ Given model $B$ that gives us probability for word $w_i$, we can estimate p with
 \end{equation}
 First part is direct estimation of probability, second part is under model $B$. Parameter $\mu$ gives
 importance of background model.
+
+\section{Word Distributions, Zipf's Law and Word Association}
+Usually, number of types (vocabulary) bigger than number of tokens, bc words used multiple times.
+Can now model the word distribution (with constant for given auther inside given genre).
+\subsection{Zipf's Law}
+Regularity, not strict law. Frequency of word $f(w)$ is related to inverse rank $z$ (when ordered by freq)
+\begin{equation}
+	f(w) = \frac{c}{z^\alpha} = c \cdot z^{-\alpha}
+\end{equation}
+If we take log on both sides, might end up mor useful bc no more exponent.
 \section{Spell checking, 24. March 2014}
 
 \subsection{Damereau-Levenstein metric}
