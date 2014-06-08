@@ -2,6 +2,7 @@
 %Gummi|065|=)
 \title{\textbf{Natural language processing}}
 \usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
 \usepackage{mathtools}
 \usepackage{fullpage}
 \usepackage{hyperref}
@@ -92,14 +93,90 @@ importance of background model.
 \section{Word Distributions, Zipf's Law and Word Association}
 Usually, number of types (vocabulary) bigger than number of tokens, bc words used multiple times.
 Can now model the word distribution (with constant for given auther inside given genre).
+
 \subsection{Zipf's Law}
 Regularity, not strict law. Frequency of word $f(w)$ is related to inverse rank $z$ (when ordered by freq)
 \begin{equation}
 	f(w) = \frac{c}{z^\alpha} = c \cdot z^{-\alpha}
 \end{equation}
-If we take log on both sides, might end up mor useful bc no more exponent.
-\section{Spell checking, 24. March 2014}
+If we take log on both sides, might end up mor useful bc no more exponent. $\alpha$ is usually 1 (for zipf).
+If it is approximately linear, the data obeys zipfs law. $c$ can be used for normalization purposes
+and might for example be 1 over the harmonic number of the vocabulary size.
 
+\subsection{Hapax Legomena}
+Words that only occur once. Make up large part of vocabulary (e.g. in obama speech corpus). Zipf's
+law predicts 50 \% hapax legomena. 
+
+\subsection{Vocabulary growth}
+Author can be characterized by vocabulary. Can model growth of vocabular/hapax legomena with growth of corpus.
+Could e.g. use ratio $|V|/n$ vocabulary size divided by number tokens in corpus, but
+is not stable, many events may not occur in sample. 
+
+\subsection{Keyword in Context, word association tests}
+Provide left/right context around given word. E.g. can realize that strong occurs in other contexts
+than powerful, although synonym (strong coffee, not powerful, powerful PC, strong PC)
+Can find out if word is significantly more in context by doing t-test
+
+\subsubsection{t-test}
+Compute $t_o$ the observed t value by doing
+\begin{equation}
+	t_o = \frac{\overline{x} - \mu}{\sqrt{\sigma^2}}\cdot \sqrt{n}
+\end{equation}
+\begin{itemize}
+	\item $\mu$ the probability under assumption, the two words are independent p(coffee)*p(strong)
+	\item $\overline{x}$ the observed occurence p(strong coffe)
+	\item $\sigma^2$ the variance (p(strong coffee)*(1- p(strong coffee)) = 
+	$\overline{x}\cdot (1- \overline{x})$, about the same as p(strong coffee).
+\end{itemize}
+Compare value with t-test distribution with dof $\infty$ with desired certainty. If its larger, the
+null hypothesis does not hold and the two terms are related.
+
+\subsubsection{Chi-square test}
+Make contingency table by splitting corpus into e.g. Obama, not-Obama and "IT", not "IT" (Observed table).
+Do table again under expectation that distribution exactly the same in both corpus (Expected table). 
+Then compute for every corresponding cell pair and sum up
+\begin{equation}
+	\chi^2 = \sum_i = \frac{(O_i - E_i)^2}{E_i}
+\end{equation}
+And look up value in chi-square distribution table. DOF is here (rows - 1)*(columns - 1) = 1*1 = 1.
+
+\subsubsection{Z-Score}
+General score for difference of some observed random variable $x$, it's mean $\mu$ and std $\sigma$.
+\begin{equation}
+	z = \frac{ - \mu}{\sigma} = \frac{a - (n' \cdot p(w)}{\sqrt{n' \cdot p(w) \cdot (1 - p(w))}}
+\end{equation}
+with $a$ the upper left value of the contingency table. z-score follows standard 
+normal distribution, so value can be
+compared there.
+
+\section{Spell checking, 24. March 2014}
+Error have different causes, e.g. OCR, user (slip or incompetence). Usually done with look up in dictionary, then suggest short list of corrections. Dictionary have a load
+factor $\alpha = m/n$ with $m$ number of elements, $n$ number of slots. Use hash function to decide on 
+place where to store value. Should be as random as possible, but can not be random from non-random data!
+Could use multiple dictionaries that are queried in order [most frequent terms] -> [usual terms] -> [rare terms]
+
+Fast dictionary essential for spell checking. Larger dictionary also leads to more lenient system (more
+undetected errors). Probably exclude archaig/obsolete forms. 
+
+\subsection{n-gram spell checker}
+Not all bigrams/trigrams do actually occur (only 70 respectively 25 percent). If a token contains
+multiple rare bigrams/trigrams, probably misspelled. 
+\subsection{Performance of spell chekcer}
+Can test agains test suite, record false negatives (fails to detect true errors) and false positives
+(correct word identified as error), then compute accuracy, sensitivity and specificy. Credibility
+of system needs to be high enough to be helpful.
+
+\subsection{Soundex - Similarity key technique}
+Retain fundamental feature of string (pronounciation in this case). Create soundex string of word by
+\begin{enumerate}
+	\item Keep first letter of word
+	\item Replace every following letter with number (defined in lookup table, similar sounding sound = same number)
+	\item delete all zeroes (ignored sounds/characters)
+	\item remove connected repetitions of numbers
+	\item truncate to 1 letter and 3 numbers.
+\end{enumerate}
+E.g. Dixon and Dickson will have same soundex string. SPEEDCOP similar system that does things a bit
+differently. 
 \subsection{Damereau-Levenstein metric}
 \label{sub:levenstein}
 Tries to rank similarity/difference between two tokens: Add up number of
@@ -129,7 +206,7 @@ Then we can take the value at the bottom right as distance.
 For a misspelled token $t$, we can find order the canditates by using $f(c)$ of some 
 candidate $c$ by evaluating
 \begin{equation}
-	f(c) = p(c) \cdot p(c|t)
+	f(c) = p(c) \cdot p(t|c)
 \end{equation}
 $p(c)$ models the probability of the candidate (can be easily modeled, apply some smoothing)
 , $p(c|t)$ models the misspellings (noise). 
@@ -143,7 +220,7 @@ Build up confusion matrix that models the probability, some character $q$ was mi
 \subsubsection{Evaluation/Conclusion}
 Many errors go undetectd, e.g. grammatical errors, homophones, etc.
 
-\subsection{Markov Models}
+\section{Markov Models}
 \label{sec:markov_models}
 Graph with nodes/states $S$, fully connected. Every edge has a certain probability 
 (may be 0). Outgoing/incoming probabilities must sum up to 1. Probabilities are displayable 
@@ -154,10 +231,41 @@ at some time $n$, state changes every timestep (may change to same again)):
 \end{equation}
 As simplification, we usually assume that the probability of the 
 next state is only dependent on the current state (\emph{memoryless property, markov property}). This probability can be easily read from the matrix constructed before.
-We also assume that the probabilities don't change with time (are the same for every $x_n$).
+We also assume that the probabilities don't change with time (are the same for every $t$, \emph{homogeneity property}).
 
-Initial distribution: all states have the same probability
+Initial distribution: all states have the same probability. To know the probability be in a certain 
+state after $m$ time steps, we can compute
+\begin{equation}
+	\pi_m = \pi_0 \cdot P \cdot P \cdot \ldots \cdot P = \pi_0 \cdot P^m
+\end{equation}
+
+\subsection{Reducibility}
+Can all states be reached from all others? If there is a path from state $s_i$ to 
+state $s_k$ and vice-versa, these two
+states intercommunicate. If all states of a markov chain intercommunicate, it is irreducible. 
+
+\subsection{Periodicity}
+For a state $s_i$ we can define the period $d$ as the greatest common divisor of the set of times, that the
+chain can return. 
+
+If $d(s_i) = 1$, the state is called aperiodic (so it returns to this state at irregular times).
+ If all states are aperiodic, the whole markov chain
+is called aperiodic, otherwise it's periodic.
+
+\subsection{Stationary distribution}
+For time independent markov chaings ($P$ for every $t$ the same) that is irreducible and aperiodic, there
+exists exactly one stationary distribution with 
+\begin{equation}
+	\mu \cdot P = \mu
+\end{equation}
 % section markov_models (end)
+\subsection{Applications in NLP}
+\begin{itemize}
+	\item Speech synthesis, word "tomato" can be produced by phonems with different pronounciation,
+model it as markov chain.
+	\item Parsing of sentences, type of word is decided on type of previous word, use statistical information.
+\end{itemize} 
+
 
 \section{Hidden Markov models HMM, 31. March 2014}
 In a hidden Markov model, the states $S$ are not directly observable. Transitions are visible
@@ -165,7 +273,7 @@ by emitting symbols (either \emph{arc-emission} HMM or \emph{state-emission} HMM
 So for a HMM we have further
 \begin{itemize}
 	\item $K$ - set of possible symbols
-	\item $O$ - set of observed symbols
+	\item $O$ - Sequence of observed symbols
 	\item $B, b_{ijk}$ probability of emitting symbol $k$ when when transitioning from 
 	$s_i$ to $s_j$.
 \end{itemize}
